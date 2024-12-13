@@ -1,80 +1,96 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Crimson Throne - Đồ án môn học "Phát triển game"
 
-# Getting Started
+## Thành viên thực hiện
+Nguyễn Nhật Khoa
+Trần Anh Kiệt
+Nguyễn Hà Hoàng Tuấn
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
-
-## Step 1: Start the Metro Server
-
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
-
-To start Metro, run the following command from the _root_ of your React Native project:
-
-```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+## Cấu trúc thư mục
+```
+Assets/
+|-- _ProjectSettings/             # Thư mục mặc định của Unity (tự động tạo)
+|
+|-- Art/                          # Chứa các assets đồ họa
+|   |-- Tiles/                    # Tilemap cho các map
+|   |   |-- Map1/                 # Map 1 
+|   |   |-- Map2/                 # Map 2 
+|   |   |-- Map3/                 # Map 3 
+|   |-- Characters/               # Nhân vật & Quái vật
+|   |   |-- Player/               # Animation cho Player
+|   |   |   |-- Knight/           # Hiệp sĩ
+|   |   |   |-- Assassin/         # Thích khách
+|   |   |   |-- Mage/             # Pháp sư
+|   |   |-- Enemies/              # Animation cho Quái
+|   |   |   |-- Skeleton/     
+|   |   |   |-- Assassin/     
+|   |   |   |-- LizardDemon/  
+|   |   |   |-- ...
+|   |-- UI/                       # UI game (Main Menu, HUD)
+|
+|-- Prefabs/                      # Chứa các prefab được tái sử dụng
+|   |-- Player/                   # Prefab cho Player
+|   |-- Enemies/                  # Prefab cho Quái
+|   |-- Tiles/                    # Prefab Tilemap
+|   |-- UI/                       # Prefab UI
+|
+|-- Scripts/                      # Tất cả các scripts
+|   |-- Player/                   # Scripts liên quan đến Player
+|   |   |-- PlayerController.cs   # Điều khiển input
+|   |   |-- PlayerAnimation.cs    # Điều khiển animation
+|   |-- Enemies/                  # Scripts điều khiển Quái
+|   |   |-- EnemyBase.cs          # Script cha cho tất cả quái
+|   |   |-- EnemyMovement.cs      # Điều khiển di chuyển của quái
+|   |-- Managers/                 # Scripts quản lý chung
+|   |   |-- GameManager.cs        # Quản lý trạng thái game
+|   |   |-- UIManager.cs          # Quản lý UI
+|   |-- Utilities/                # Scripts tiện ích (helper)
+|
+|-- Scenes/                       # Chứa các scene của game
+|   |-- MainMenu.unity            # Scene Main Menu
+|   |-- Map1.unity                # Scene Map 1
+|   |-- Map2.unity                # Scene Map 2
+|   |-- Map3.unity                # Scene Map 3
+|
+|-- Audio/                        # Chứa nhạc nền và âm thanh
+|   |-- BGM/                      # Nhạc nền (Background Music)
+|   |-- SFX/                      # Hiệu ứng âm thanh (Sound Effects)
+|
+|-- Fonts/                        # Chứa các font chữ sử dụng trong game
+|
+|-- Materials/                    # Chứa các material cho đồ họa
+|
+|-- Animations/                   # Chứa animation clips và animator controllers
+|   |-- Player/                   # Animation cho Player
+|   |-- Enemies/                  # Animation cho Quái
+|
+|-- Plugins/                      # Các plugin hoặc package thêm
+|
+|-- Documentation/                # Tài liệu liên quan đến dự án
+|   |-- ReadMe.txt                # Hướng dẫn cơ bản cho dự án
+|
+|-- StreamingAssets/              # Dữ liệu như video, file ngoài
+|
+|-- Resources/                    # Dùng để load assets động (dùng với Resources.Load)
+|
+|-- Testing/                      # Scripts hoặc scene test chức năng
 ```
 
-## Step 2: Start your Application
+## Mô tả
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
 
-### For Android
+## Mục tiêu
 
-```bash
-# using npm
-npm run android
 
-# OR using Yarn
-yarn android
-```
+## Thể loại
 
-### For iOS
 
-```bash
-# using npm
-npm run ios
+## Kĩ thuật sử dụng
+UI, va chạm, nhặt item, xử lí item, âm thanh, memu...
 
-# OR using Yarn
-yarn ios
-```
+## Ghi chú
+Toàn bộ code là xử lí logic cho vật thể, có thể lấy tài nguyên để chạy ở link Drive.
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Link tải tài nguyên
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
-#
+## Link video demo
