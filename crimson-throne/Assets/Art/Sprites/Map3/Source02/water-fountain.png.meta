@@ -141,6 +141,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -509,7 +522,23 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      water-fountain_0: -1683859327297501933
+      water-fountain_1: 2916380899464304251
+      water-fountain_10: -1559529417667473760
+      water-fountain_11: 6873196134350006465
+      water-fountain_12: 8865459589349012033
+      water-fountain_13: 26369453906579603
+      water-fountain_14: -3789285366915012659
+      water-fountain_15: -2980258195288651971
+      water-fountain_2: -4071373877820793669
+      water-fountain_3: 4994516785203133792
+      water-fountain_4: 7427085196478027900
+      water-fountain_5: 409497674837518761
+      water-fountain_6: -3260322431574651215
+      water-fountain_7: 2377326069307866022
+      water-fountain_8: -4764938249632121424
+      water-fountain_9: -5410196283444677785
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

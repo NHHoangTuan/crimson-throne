@@ -156,6 +156,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -634,7 +647,28 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      pentagramm_0: 4042935511939799992
+      pentagramm_1: -938309037179832286
+      pentagramm_10: -6445592571530013785
+      pentagramm_11: -6217558898890490166
+      pentagramm_12: 2531966499120693624
+      pentagramm_13: -4730778145831810942
+      pentagramm_14: 5593598260725546550
+      pentagramm_15: 4080452186495800970
+      pentagramm_16: -4840778176821383921
+      pentagramm_17: 4257596042453332681
+      pentagramm_18: 1679125494222398662
+      pentagramm_19: 2452675795071017607
+      pentagramm_2: -199818814999697862
+      pentagramm_20: 2836041074341937038
+      pentagramm_3: -1496247607254613345
+      pentagramm_4: 4686152152976112349
+      pentagramm_5: 1093218007240687500
+      pentagramm_6: -9086988259946643991
+      pentagramm_7: -7554487739395705464
+      pentagramm_8: 4403550030487780603
+      pentagramm_9: 3695840847871992905
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

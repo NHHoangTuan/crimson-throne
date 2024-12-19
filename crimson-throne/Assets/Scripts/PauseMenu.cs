@@ -31,6 +31,14 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            if (GameIsPaused)
+            {
+                NextScene();
+            }
+        }
     }
 
     public void Resume()
@@ -52,5 +60,17 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f; // Trả timescale về 1 trước khi load scene
         GameIsPaused = false;
         SceneManager.LoadScene(mainMenuSceneName);
+    }
+
+    public void NextScene()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        Debug.Log("Scene Index: " + currentSceneIndex);
+        if (currentSceneIndex >= 3) return;
+        Time.timeScale = 1f; // Trả timescale về 1 trước khi load scene
+        GameIsPaused = false;
+        // Chuyển sang Scene tiếp theo dựa trên Build Index
+        
+        SceneManager.LoadScene(currentSceneIndex + 1);
     }
 }

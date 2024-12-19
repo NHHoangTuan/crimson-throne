@@ -114,6 +114,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -284,7 +297,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      evildungeon_0: 1011270216451811866
+      evildungeon_1: -2002879627866373041
+      evildungeon_2: 3072325285915451874
+      evildungeon_3: -1323433227573252835
+      evildungeon_4: 4143893608313386023
+      evildungeon_5: 2114871785975350167
+      evildungeon_6: 6196407108712058013
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

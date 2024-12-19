@@ -141,6 +141,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -509,7 +522,23 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      blood-fountain_0: 4027535796522221158
+      blood-fountain_1: -8302626224596188676
+      blood-fountain_10: 5375037385312600371
+      blood-fountain_11: 6966389096886221520
+      blood-fountain_12: 826212916983029140
+      blood-fountain_13: -8269005492756459768
+      blood-fountain_14: 4135283803557566630
+      blood-fountain_15: 1803453213010412653
+      blood-fountain_2: -1476460153170934610
+      blood-fountain_3: -1815091546809182396
+      blood-fountain_4: 5760851858376434383
+      blood-fountain_5: 8075918117179040826
+      blood-fountain_6: -2928160033932984287
+      blood-fountain_7: -3281216763501345514
+      blood-fountain_8: 2018905191012398969
+      blood-fountain_9: -3156217291961804583
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
