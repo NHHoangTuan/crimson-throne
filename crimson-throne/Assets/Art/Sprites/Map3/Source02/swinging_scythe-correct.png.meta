@@ -147,6 +147,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -559,7 +572,25 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      swinging_scythe-correct_0: -2001893969960371208
+      swinging_scythe-correct_1: -5914921056324839111
+      swinging_scythe-correct_10: 3209837459801892368
+      swinging_scythe-correct_11: -5531517014595011685
+      swinging_scythe-correct_12: -2366106823044424420
+      swinging_scythe-correct_13: -2326407003982389511
+      swinging_scythe-correct_14: 8295603653610930332
+      swinging_scythe-correct_15: 7926841476557974603
+      swinging_scythe-correct_16: 4284667636982142289
+      swinging_scythe-correct_17: -2329592411270872282
+      swinging_scythe-correct_2: -5785738243438657740
+      swinging_scythe-correct_3: -7824966445348699241
+      swinging_scythe-correct_4: -1947909859830199466
+      swinging_scythe-correct_5: -6995151513122565275
+      swinging_scythe-correct_6: 7293257337440980246
+      swinging_scythe-correct_7: -447943435084674607
+      swinging_scythe-correct_8: 8605200694666041189
+      swinging_scythe-correct_9: 1000782156634556833
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

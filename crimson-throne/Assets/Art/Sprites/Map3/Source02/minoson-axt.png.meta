@@ -141,6 +141,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -509,7 +522,23 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      minoson-axt_0: -1194276929897524384
+      minoson-axt_1: -2805838633278849512
+      minoson-axt_10: -2250437632733226948
+      minoson-axt_11: -3507178822279065711
+      minoson-axt_12: 8271092872133589463
+      minoson-axt_13: 2901592829914733043
+      minoson-axt_14: 8498229571904718145
+      minoson-axt_15: -5491260182928796850
+      minoson-axt_2: 316255692098790292
+      minoson-axt_3: 2319335631853153989
+      minoson-axt_4: -5501817414135835315
+      minoson-axt_5: -7335665849618188159
+      minoson-axt_6: -3886105781496064289
+      minoson-axt_7: -4227969282557404848
+      minoson-axt_8: -4009667787616991503
+      minoson-axt_9: -5541338030292559003
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -141,6 +141,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -509,7 +522,23 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      rat-charset-with-shadow_0: -7313057154348171218
+      rat-charset-with-shadow_1: 4424950633854207906
+      rat-charset-with-shadow_10: -7121974387574457369
+      rat-charset-with-shadow_11: -5068186718130671338
+      rat-charset-with-shadow_12: 5170079425148734775
+      rat-charset-with-shadow_13: -4365089029730572134
+      rat-charset-with-shadow_14: -6095133046700021602
+      rat-charset-with-shadow_15: -2957640607900775250
+      rat-charset-with-shadow_2: -2112753088534173279
+      rat-charset-with-shadow_3: -3941174208089659396
+      rat-charset-with-shadow_4: -566212969390869054
+      rat-charset-with-shadow_5: 2469715556390487628
+      rat-charset-with-shadow_6: 3032670829891346128
+      rat-charset-with-shadow_7: 6526061610174326940
+      rat-charset-with-shadow_8: 6216514341976283344
+      rat-charset-with-shadow_9: 602249343314310244
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

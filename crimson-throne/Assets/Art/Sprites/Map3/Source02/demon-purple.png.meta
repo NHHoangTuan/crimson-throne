@@ -129,6 +129,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -409,7 +422,19 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      demon-purple_0: -9216015155353511440
+      demon-purple_1: 5822452264445839965
+      demon-purple_10: -1994134153924301824
+      demon-purple_11: -7824393559689096565
+      demon-purple_2: -3469864759010182949
+      demon-purple_3: 3668911100117444477
+      demon-purple_4: -4138450496333723747
+      demon-purple_5: 6478014865344161523
+      demon-purple_6: -2371236033149440468
+      demon-purple_7: -4818982751873559409
+      demon-purple_8: -8111264265680643917
+      demon-purple_9: -8612884453909781536
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
