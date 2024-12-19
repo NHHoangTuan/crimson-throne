@@ -2,7 +2,7 @@
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    public float moveSpeed = 4.5f;
     private Rigidbody2D rb;
 
     float horizontal;
