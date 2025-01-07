@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3402685009929146732}
   - component: {fileID: 5009630183305716009}
   - component: {fileID: 3485540564739298970}
-  - component: {fileID: 4519812432798934403}
+  - component: {fileID: 4843735042014652163}
   m_Layer: 7
   m_Name: Mushroom
   m_TagString: Untagged
@@ -186,7 +186,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4519812432798934403
+--- !u!114 &4843735042014652163
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,8 +195,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5132915648789423311}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 435de6f0964bacb44a68d1b141a2d5d3, type: 3}
+  m_Script: {fileID: 11500000, guid: f47b36b44b50ff84b99ad0f9d5e3a83e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  target: {fileID: 0}
+  health: 0
+  speed: 0
+  damage: 0
+  dropExp: 0
+  isDefeated: 0
+  deathEffect: {fileID: 0}
