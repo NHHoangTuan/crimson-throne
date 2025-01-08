@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     private void Start() 
     {
         SkillsManager.instance.inactiveSkills[0].LevelUp();
-        // WaveManager.instance.StartGame();
+        WaveManager.instance.StartGame();
     }
 
     private void Update()

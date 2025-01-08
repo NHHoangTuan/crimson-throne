@@ -82,6 +82,7 @@ public class EnemyController : MonoBehaviour
 
     protected virtual void Die()
     {
+        WaveManager.instance?.EnemyDied();
         rb2d.linearVelocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = false;
         isDefeated = true;

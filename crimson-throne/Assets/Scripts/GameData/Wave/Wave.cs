@@ -1,17 +1,21 @@
-using UnityEditor.EditorTools;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewWave", menuName = "Wave System/Wave")]
+[CreateAssetMenu(fileName = "NewWave", menuName = "WaveSystem/Wave")]
 public class Wave : ScriptableObject
 {
     public string waveName;
     public float duration;
     public int totalEnemies;
-    public float spawnInterval;
+    public float spawnInterval = 5f;
     public GameObject[] enemyPrefabs;
     public GameObject bossPrefab;
     public bool hasBoss;
-    public bool hasMapEvent;
-    [Tooltip("EnemyWall / EnemyCircle / EnemyBlock")]
-    public string mapEvent;
+    public MapEventType mapEvent;
+}
+
+public enum MapEventType
+{
+    NONE,
+    ENEMY_WALL,
+    ENEMY_CIRCLE,
 }
