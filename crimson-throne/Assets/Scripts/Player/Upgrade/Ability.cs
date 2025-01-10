@@ -32,5 +32,10 @@ public abstract class Ability : MonoBehaviour
         return artwork;
     }
 
+	public int GetMaxLevel()
+    {
+        return maxLevel;
+    }
+
     public abstract void LevelUp();
 }

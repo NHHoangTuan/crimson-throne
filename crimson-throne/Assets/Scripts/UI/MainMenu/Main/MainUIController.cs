@@ -4,15 +4,31 @@ using UnityEngine.SceneManagement;
 
 public class MainUIController : MonoBehaviour
 {
-    public static MainUIController instance;
+    public static MainUIController instance { get; private set; }
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
 
-    public void OpenMapsPanel()
+    public void StartNewGame()
     {
-        UIManager.instance.mapsPanel.SetActive(true);
+        GameManager.instance?.NextLevel();
+    }
+
+    public void OpenPowerUp()
+    {
+        UIManager.instance.mainPanel.SetActive(false);
+        UIManager.instance.powerUpPanel.SetActive(true);
+        PowerUpUIController.instance?.SetUp();
+    }
+
+    public void OpenSettings()
+    {
+        UIManager.instance.mainPanel.SetActive(false);
+        UIManager.instance.settingsPanel.SetActive(true);
     }
 }

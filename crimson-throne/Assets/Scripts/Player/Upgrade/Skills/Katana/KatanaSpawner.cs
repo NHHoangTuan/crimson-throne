@@ -16,6 +16,7 @@ public class KatanaSpawner : Ability
         "Passes through 1 more enemy.",
         "Base Damage up by 3.",
         "Passes through 1 more enemy.",
+        "",
     };
     [SerializeField] private int[] pierce = {0,1,1,2,2,3};
     [SerializeField] private float[] damage = {0,4f,6f,6f,9f,9f};
@@ -52,7 +53,6 @@ public class KatanaSpawner : Ability
         if (currentLevel < maxLevel)
         {
             currentLevel++;
-            description = descriptions[currentLevel + 1];
         }
         if (currentLevel == 1)
         {
@@ -62,6 +62,10 @@ public class KatanaSpawner : Ability
         if (currentLevel == maxLevel)
         {
             SkillsManager.instance.MoveToMaxSkills(this);
+        }
+        else 
+        {
+            description = descriptions[currentLevel + 1];
         }
     }
 

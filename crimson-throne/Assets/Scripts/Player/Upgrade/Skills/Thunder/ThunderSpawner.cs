@@ -6,6 +6,7 @@ public class ThunderSpawner : Ability
 {
     public static ThunderSpawner instance { get; private set; }
     [SerializeField] private GameObject prefab;
+    [SerializeField] private LayerMask enemyLayer; 
     [SerializeField] private float maxDistance = 10f;
     [SerializeField] private float duration = 0.7f;
     [SerializeField] private float cooldown = 4f; 
@@ -16,6 +17,7 @@ public class ThunderSpawner : Ability
         "Base Damage up by 10.",
         "Fires 1 more projectile.",
         "Base Damage up by 20.",
+        "",
     };
     [SerializeField] private int[] projectilesCount = {0,2,3,3,4,4};
     [SerializeField] private float[] damage = {0,15f,15f,25f,25f,55f};
@@ -38,12 +40,16 @@ public class ThunderSpawner : Ability
         Image imageComponent = prefab.GetComponentInChildren<Image>();
     }
     
+    public float GetCurrentDamage()
+    {
+        return damage[currentLevel];
+    }
+    
     public override void LevelUp()
     {
         if (currentLevel < maxLevel)
         {
             currentLevel++;
-            description = descriptions[currentLevel + 1];
         }
         if (currentLevel == 1)
         {
@@ -54,6 +60,10 @@ public class ThunderSpawner : Ability
         {
             SkillsManager.instance.MoveToMaxSkills(this);
         }
+        else 
+        {
+            description = descriptions[currentLevel + 1];
+        }
     }
 
     private IEnumerator SpawnThunders()
@@ -61,15 +71,36 @@ public class ThunderSpawner : Ability
         while (true)
         {
             Vector2 playerPosition = PlayerController.instance.transform.position;
-
-            for (int i = 0; i < projectilesCount[currentLevel]; i++)
+            Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(playerPosition, maxDistance, enemyLayer);
+            int thunderCounts = enemiesInRange.Length;
+            if (thunderCounts > 0)
             {
-                yield return new WaitForSeconds(0.02f);
+                System.Array.Sort(enemiesInRange, (a, b) =>
+                    Vector2.Distance(playerPosition, a.transform.position)
+                    .CompareTo(Vector2.Distance(playerPosition, b.transform.position)));
+
+                int count = Mathf.Min(projectilesCount[currentLevel], enemiesInRange.Length);
+                thunderCounts = count;
+                for (int i = 0; i < count; i++)
+                {
+                    Vector2 targetPosition = enemiesInRange[i].transform.position;
+                    SpawnThunder(targetPosition);
+                    yield return new WaitForSeconds(0.02f);
+                }
+            }
+            for (int i = 0; i < projectilesCount[currentLevel] - thunderCounts; i++)
+            {
                 Vector2 randomPosition = playerPosition + Random.insideUnitCircle * maxDistance;
-                GameObject thunder = Instantiate(prefab, randomPosition, Quaternion.identity);
-                Destroy(thunder, duration);
+                SpawnThunder(randomPosition);
+                yield return new WaitForSeconds(0.02f);
             }
             yield return new WaitForSeconds(cooldown * PlayerAttributeBuffs.instance.cooldownRatio);
         }
+    }
+
+    private void SpawnThunder(Vector2 position)
+    {
+        GameObject thunder = Instantiate(prefab, new Vector2(position.x, position.y + 2.94f), Quaternion.identity);
+        Destroy(thunder, duration);
     }
 }

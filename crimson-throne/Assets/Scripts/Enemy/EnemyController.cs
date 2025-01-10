@@ -5,10 +5,10 @@ using UnityEngine.UIElements;
 public class EnemyController : MonoBehaviour
 {
     [Header("Enemy Attributes")]
-    [SerializeField] protected float health;
-    [SerializeField] protected float speed;
-    [SerializeField] protected float damage;
-    [SerializeField] protected float dropExp;
+    [SerializeField] protected float health = 1;
+    [SerializeField] protected float speed = 1;
+    [SerializeField] protected float damage = 1;
+    [SerializeField] protected float dropExp = 1;
     [SerializeField] protected bool isDefeated = false;
     [Header("Effects")]
     [SerializeField] protected GameObject deathEffect;
@@ -16,29 +16,35 @@ public class EnemyController : MonoBehaviour
     protected Transform target;
     protected Animator animator;
     protected Rigidbody2D rb2d;
+    private System.Action<Vector2> spawnItemAction = null;
 
-    protected virtual void Start()
+    private void Awake()
+    {
+        if (spawnItemAction == null)
+        {
+            spawnItemAction = pos => ItemSpawner.instance?.SpawnExp(dropExp, pos);
+        }
+    }
+
+    private void Start()
     {
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
         target = PlayerController.instance.transform;
     }
 
-    public virtual void Initialize(float health, float speed, float damage, int dropExp)
+    public void SetSpawnItemAction(System.Action<Vector2> action)
     {
-        this.health = health;
-        this.speed = speed;
-        this.damage = damage;
-        this.dropExp = dropExp;
+        spawnItemAction = action;
     }
 
-    protected virtual void Update()
+    private void Update()
     {
         if (isDefeated || target == null || isKnockedBack) return;
         MoveTowardsTarget();
     }
 
-    protected virtual void MoveTowardsTarget()
+    private void MoveTowardsTarget()
     {
         Vector2 direction = (target.position - transform.position).normalized;
         rb2d.linearVelocity = direction * speed;
@@ -53,9 +59,10 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public virtual void TakeDamage(float damageTaken, float knockbackForce)
+    public void TakeDamage(float damageTaken, float knockbackForce)
     {
         if (isDefeated) return;
+        animator.SetTrigger("Hit");
         health -= damageTaken;
         ApplyKnockback(knockbackForce);
         if (health <= 0)
@@ -80,18 +87,16 @@ public class EnemyController : MonoBehaviour
         isKnockedBack = false;
     }
 
-    protected virtual void Die()
+    private void Die()
     {
         WaveManager.instance?.EnemyDied();
         rb2d.linearVelocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = false;
         isDefeated = true;
-        GameManager.instance.UpdateKillsCount(1);
-        if (Random.value <= 0.9f)
-        {
-            ItemSpawner.instance?.SpawnExp(dropExp, transform.position);
-        }
-        animator.SetTrigger("Dead");
+        spawnItemAction?.Invoke(transform.position);
+
+        // animator.SetTrigger("Dead");
+        GameManager.instance.UpdateKillsCount(1);      
         if (deathEffect != null)
         {
             GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
@@ -100,7 +105,7 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 312111886124901478}
   - component: {fileID: 7492481229174820629}
   - component: {fileID: 363067440641187578}
+  - component: {fileID: -5953997459632380653}
   m_Layer: 0
   m_Name: TornadoAbility
   m_TagString: Untagged
@@ -163,6 +164,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-5953997459632380653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2861680605450716267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b4c7aaa4ef63e48a6d9ba25a1a5e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockback: 1.75
 --- !u!1 &6213310414569121490
 GameObject:
   m_ObjectHideFlags: 0

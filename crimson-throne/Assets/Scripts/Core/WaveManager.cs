@@ -13,18 +13,16 @@ public class WaveManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
-
-    private void Start()
-    {
-        player = PlayerController.instance.transform;
-    }
-
+    
     public void StartGame()
     {
         StartCoroutine(GameFlow());
+        player = PlayerController.instance.transform;
     }
 
     private IEnumerator GameFlow()
@@ -34,55 +32,75 @@ public class WaveManager : MonoBehaviour
             yield return StartCoroutine(StartWave(wave));
             yield return new WaitForSeconds(5f);
         }
-        Debug.Log("All waves completed!");
+        Debug.Log("All waves have been spawned!");
     }
 
-    public IEnumerator StartWave(Wave wave)
+    private IEnumerator StartWave(Wave wave)
     {
         Debug.Log($"Starting Wave: {wave.waveName}");
-        
-        float spawnInterval = wave.spawnInterval;
-        int numSpawns = Mathf.CeilToInt(wave.duration / spawnInterval);
-        Debug.Log($"Wave will spawn {numSpawns} times.");
-        int[] enemiesPerSpawn = DistributeEnemies(wave.totalEnemies, numSpawns);
 
-        for (int i = 0; i < numSpawns; i++)
+        switch (wave.waveType)
         {
-            if (enemiesAlive >= maxEnemiesAlive) yield return null;
+            case WaveType.NORMAL_WAVE:
+                float spawnInterval = wave.spawnInterval;
+                int numSpawns = Mathf.CeilToInt(wave.duration / spawnInterval);
+                int[] enemiesPerSpawn = DistributeEnemies(wave.totalEnemies, numSpawns);
 
-            SpawnMultipleEnemies(wave.enemyPrefabs, enemiesPerSpawn[i]);
-            yield return new WaitForSeconds(spawnInterval);
+                for (int i = 0; i < numSpawns; i++)
+                {
+                    if (enemiesAlive >= maxEnemiesAlive) yield return null;
+
+                    SpawnMultipleEnemies(wave.enemyPrefabs, enemiesPerSpawn[i], pos => 
+                        ItemSpawner.instance?.SpawnExp(2, pos));
+                    yield return new WaitForSeconds(spawnInterval);
+                }
+                break;
+            case WaveType.MINI_BOSS:
+                if (wave.enemyPrefabs.Length > 0)
+                {
+                    SpawnEnemy(wave.enemyPrefabs[0], pos => 
+                        ItemSpawner.instance?.SpawnExp(Random.Range(10, 21), pos));
+                }
+                yield return new WaitForSeconds(wave.duration);
+                break;
+            case WaveType.FINAL_BOSS:
+                if (wave.enemyPrefabs.Length > 0)
+                {
+                    SpawnEnemy(wave.enemyPrefabs[0], pos => 
+                    {
+                        if (GameManager.instance.IsFinal())
+                        {
+                            ItemSpawner.instance?.SpawnKey(pos);
+                        }
+                        else
+                        {
+                            ItemSpawner.instance?.SpawnGate(pos);
+                        }
+                    });
+                }
+                yield return new WaitForSeconds(wave.duration);
+                break;
         }
-
-        Debug.Log($"Wave {wave.waveName} completed.");
     }
 
-    private void SpawnMultipleEnemies(GameObject[] enemyPrefabs, int count)
+    private void SpawnEnemy(GameObject prefab, System.Action<Vector2> onDie)
     {
-        for (int i = 0; i < count; i++)
+        Vector2 spawnPos = spawnPositions[Random.Range(0, spawnPositions.Length)].position;
+        GameObject enemy = Instantiate(prefab, spawnPos, Quaternion.identity);
+        EnemyController enemyController = enemy.GetComponent<EnemyController>();
+        if (enemyController != null)
         {
-            if (enemiesAlive >= maxEnemiesAlive) break;
-
-            Transform spawnPosition = spawnPositions[Random.Range(0, spawnPositions.Length)];
-            GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
-
-            SpawnEnemy(enemyPrefab, spawnPosition.position);
+            enemyController.SetSpawnItemAction(onDie);
         }
-    }
-
-    private void SpawnEnemy(GameObject enemyPrefab, Vector2 position)
-    {
-        Instantiate(enemyPrefab, position, Quaternion.identity);
         enemiesAlive++;
     }
 
-    private void SpawnBoss(GameObject bossPrefab)
+    private void SpawnMultipleEnemies(GameObject[] prefabs, int count, System.Action<Vector2> onDie)
     {
-        if (bossPrefab != null)
+        if (prefabs.Length == 0) return;
+        for (int i = 0; i < count; i++)
         {
-            Vector2 spawnPosition = spawnPositions[Random.Range(0, spawnPositions.Length)].position;
-            Instantiate(bossPrefab, spawnPosition, Quaternion.identity);
-            Debug.Log("Boss Spawned!");
+            SpawnEnemy(prefabs[Random.Range(0, prefabs.Length)], onDie);
         }
     }
 
@@ -94,144 +112,27 @@ public class WaveManager : MonoBehaviour
     private int[] DistributeEnemies(int totalEnemies, int numSpawns)
     {
         int[] distribution = new int[numSpawns];
-        int midStart = Mathf.FloorToInt(numSpawns / 3);
-        int midEnd = Mathf.CeilToInt(numSpawns * 2 / 3); 
-
-        int remainingEnemies = totalEnemies;
-
-        distribution[0] = Mathf.CeilToInt(totalEnemies * 0.1f);
-        distribution[numSpawns - 1] = Mathf.CeilToInt(totalEnemies * 0.1f);
-
-        remainingEnemies -= distribution[0] + distribution[numSpawns - 1];
-
-        for (int i = midStart; i < midEnd; i++)
+        float[] weights = new float[numSpawns];
+        for (int i = 0; i < numSpawns; i++)
         {
-            distribution[i] = Mathf.CeilToInt(remainingEnemies / (midEnd - midStart));
-            remainingEnemies -= distribution[i];
+            weights[i] = 1 + Mathf.Abs(numSpawns / 2 - i);
         }
-
-        for (int i = 1; i < numSpawns - 1; i++)
+        float totalWeight = 0f;
+        for (int i = 0; i < numSpawns; i++)
         {
-            if (remainingEnemies <= 0) break;
-            if (distribution[i] == 0)
-            {
-                distribution[i] = 1;
-                remainingEnemies--;
-            }
+            totalWeight += weights[i];
         }
-
+        for (int i = 0; i < numSpawns; i++)
+        {
+            distribution[i] = Mathf.RoundToInt(totalEnemies * (weights[i] / totalWeight));
+        }
+        int currentTotal = 0;
+        foreach (int count in distribution)
+        {
+            currentTotal += count;
+        }
+        int difference = totalEnemies - currentTotal;
+        distribution[numSpawns - 1] += difference; 
         return distribution;
     }
 }
-// public void SpawnEnemy(GameObject enemyPrefab, Vector3 position)
-// {
-//     Instantiate(enemyPrefab, position, Quaternion.identity);
-// }
-
-// public void SpawnBoss(GameObject bossPrefab)
-// {
-//     if (bossPrefab != null)
-//     {
-//         Vector3 spawnPosition = GetRandomSpawnPosition();
-//         Instantiate(bossPrefab, spawnPosition, Quaternion.identity);
-//         Debug.Log("Boss Spawned!");
-//     }
-// }
-
-// private Vector3 GetRandomSpawnPosition()
-// {
-//     Vector3 spawnPosition;
-//     Bounds colliderBounds = compositeCollider.bounds;
-
-//     do
-//     {
-//         float x = Random.Range(colliderBounds.min.x, colliderBounds.max.x);
-//         float y = Random.Range(colliderBounds.min.y, colliderBounds.max.y);
-//         spawnPosition = new Vector3(x, y, 0);
-
-//         // Kiểm tra vị trí có nằm trong CompositeCollider2D không
-//     } while (!IsPositionInCompositeCollider(spawnPosition));
-
-//     return spawnPosition;
-// }
-
-// private bool IsPositionInCompositeCollider(Vector3 position)
-// {
-//     // Kiểm tra vị trí có nằm trong collider của tilemap không
-//     Collider2D hit = Physics2D.OverlapPoint(position, LayerMask.GetMask("SpawnArea"));
-//     return hit != null && hit == compositeCollider;
-// }
-
-// public void TriggerMapEvent(string mapEvent)
-// {
-//     switch (mapEvent)
-//     {
-//         case "EnemyWall":
-//             StartCoroutine(SpawnEnemyWall());
-//             break;
-//         case "EnemyCircle":
-//             StartCoroutine(SpawnEnemyCircle());
-//             break;
-//         case "EnemyBlock":
-//             StartCoroutine(SpawnEnemyBlock());
-//             break;
-//         default:
-//             Debug.LogWarning($"Unknown map event: {mapEvent}");
-//             break;
-//     }
-// }
-
-// private IEnumerator SpawnEnemyWall()
-// {
-//     // Tạo tường quái vật
-//     int enemyCount = 10;
-//     for (int i = 0; i < enemyCount; i++)
-//     {
-//         Vector3 spawnPosition = GetRandomSpawnPosition();
-//         SpawnEnemy(waves[currentWaveIndex].enemyPrefabs[Random.Range(0, waves[currentWaveIndex].enemyPrefabs.Length)], spawnPosition);
-//         yield return new WaitForSeconds(0.5f);
-//     }
-// }
-
-// private IEnumerator SpawnEnemyCircle()
-// {
-//     // Tạo vòng tròn quái vật
-//     int enemyCount = 10;
-//     float radius = 5f;
-
-//     for (int i = 0; i < enemyCount; i++)
-//     {
-//         float angle = (i / (float)enemyCount) * Mathf.PI * 2;
-//         Vector3 spawnPosition = player.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
-//         if (IsPositionInCompositeCollider(spawnPosition))
-//         {
-//             SpawnEnemy(waves[currentWaveIndex].enemyPrefabs[Random.Range(0, waves[currentWaveIndex].enemyPrefabs.Length)], spawnPosition);
-//         }
-//         yield return new WaitForSeconds(0.5f);
-//     }
-// }
-
-// private IEnumerator SpawnEnemyBlock()
-// {
-//     // Tạo khối quái vật lướt qua người chơi
-//     int enemyCount = 5;
-//     Vector3 startPoint = GetRandomSpawnPosition();
-//     Vector3 endPoint = new Vector3(startPoint.x + 10f, startPoint.y, 0);
-
-//     for (int i = 0; i < enemyCount; i++)
-//     {
-//         GameObject enemy = Instantiate(waves[currentWaveIndex].enemyPrefabs[Random.Range(0, waves[currentWaveIndex].enemyPrefabs.Length)], startPoint, Quaternion.identity);
-//         StartCoroutine(MoveEnemy(enemy, endPoint, 3f));
-//         yield return new WaitForSeconds(0.5f);
-//     }
-// }
-
-// private IEnumerator MoveEnemy(GameObject enemy, Vector3 endPoint, float speed)
-// {
-//     while (Vector3.Distance(enemy.transform.position, endPoint) > 0.1f)
-//     {
-//         enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, endPoint, speed * Time.deltaTime);
-//         yield return null;
-//     }
-//     Destroy(enemy);
-// }

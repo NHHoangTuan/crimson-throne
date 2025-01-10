@@ -17,9 +17,9 @@ public class TornadoSpawner : Ability
         "Fires 1 more projectile.",
         ""
     };
+    [SerializeField] private int[] projectilesCount = {0,1,1,2,2,3};
     [SerializeField] private float[] cooldown = {0f,3f,2.7f,2.7f,2.4f,2.4f};
     [SerializeField] private float[] damage = {0f,8f,13f,13f,18f,18f};
-    [SerializeField] private int[] projectilesCount = {0,1,1,2,2,3};
 
     void Awake()
     {
@@ -38,12 +38,17 @@ public class TornadoSpawner : Ability
         description = descriptions[currentLevel + 1];
     }
     
+    public float GetCurrentDamage()
+    {
+        return damage[currentLevel];
+    }
+
+    
     public override void LevelUp()
     {
         if (currentLevel < maxLevel)
         {
             currentLevel++;
-            description = descriptions[currentLevel + 1];
         }
         if (currentLevel == 1)
         {
@@ -53,6 +58,10 @@ public class TornadoSpawner : Ability
         if (currentLevel == maxLevel)
         {
             SkillsManager.instance.MoveToMaxSkills(this);
+        }
+        else 
+        {
+            description = descriptions[currentLevel + 1];
         }
     }
 

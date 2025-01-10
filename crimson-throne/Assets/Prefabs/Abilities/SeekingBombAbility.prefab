@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1156680583521258536}
   - component: {fileID: 3651377401006179516}
   - component: {fileID: 431688199152973754}
+  - component: {fileID: 3429059234561243589}
   m_Layer: 0
   m_Name: SeekingBombAbility
   m_TagString: Untagged
@@ -162,3 +163,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &3429059234561243589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6648547002980778703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2ba365bd82aaf846aa4466626f3ed61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockback: 1

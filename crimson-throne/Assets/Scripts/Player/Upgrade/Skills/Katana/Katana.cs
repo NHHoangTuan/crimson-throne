@@ -23,7 +23,7 @@ public class Katana : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            enemy.TakeDamage(KatanaSpawner.instance.GetCurrentDamage() * PlayerAttributeBuffs.instance.damageRatio, knockback);
+            enemy?.TakeDamage(KatanaSpawner.instance.GetCurrentDamage() * PlayerAttributeBuffs.instance.damageRatio, knockback);
         }
     }
 }

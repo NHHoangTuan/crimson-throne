@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager instance;
+    public static UIManager instance { get; private set; }
     [Header("Welcome Screen Settings")]
     public GameObject welcomeScreen;
     [Space(10)]
@@ -14,17 +14,20 @@ public class UIManager : MonoBehaviour
     public GameObject mainMenuScreen;
     [Space(3)]
     public GameObject mainPanel;
+    [Space(1)]
     public GameObject settingsPanel;
+    [Space(1)]
     public GameObject powerUpPanel;
-    public GameObject mapsPanel;
     [Space(10)]
     [Header("In-Game Settings")]
     public GameObject inGameScreen;
     [Space(3)]
     public GameObject hudPanel;
+    [Space(1)]
     public GameObject pausePanel;
+    [Space(1)]
     public GameObject levelUpPanel;
-    public GameObject gameOverPanel;
+    [Space(1)]
     public GameObject resultsPanel;
 
     private void Awake()
@@ -60,26 +63,6 @@ public class UIManager : MonoBehaviour
         hudPanel.SetActive(true);
     }
 
-    public void OpenPausePanel()
-    {
-        pausePanel.SetActive(true);
-    }
-
-    public void OpenLevelUpPanel()
-    {
-        levelUpPanel.SetActive(true);
-    }
-
-    public void OpenGameOverPanel()
-    {
-        gameOverPanel.SetActive(true);
-    }
-
-    public void OpenResultsPanel()
-    {
-        resultsPanel.SetActive(true);
-    }
-
     public void CloseAll()
     {
         welcomeScreen.SetActive(false);
@@ -88,11 +71,9 @@ public class UIManager : MonoBehaviour
         mainPanel.SetActive(false);
         settingsPanel.SetActive(false);
         powerUpPanel.SetActive(false);
-        mapsPanel.SetActive(false);
         hudPanel.SetActive(false);
         pausePanel.SetActive(false);
         levelUpPanel.SetActive(false);
-        gameOverPanel.SetActive(false);
         resultsPanel.SetActive(false);
     }
 }

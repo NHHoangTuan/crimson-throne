@@ -1,16 +1,37 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager instance { get; private set; }
+    public GameObject player;
+
+    // ACHIEVEMENT
     [SerializeField] private int coinsCount = 0;
     [SerializeField] private int killsCount = 0;
+    
+    // TIME
+    [SerializeField] private float currentTime = 0f;
+    [SerializeField] private bool isRunning = false;
+    [SerializeField] private bool isPaused = false;
+
+    // MAP
+    [SerializeField] private List<string> screens = new List<string> { 
+        "MainMenu",
+        "Map1",
+        "Map2",
+        "Map3",
+    }; 
+    [SerializeField] public int currentScreenIndex = 0;
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -18,91 +39,74 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start() 
+    public void NextLevel() 
     {
-        SkillsManager.instance.inactiveSkills[0].LevelUp();
-        WaveManager.instance.StartGame();
+        ++currentScreenIndex;
+        if (currentScreenIndex >= screens.Count) return;
+        SceneManager.LoadScene(screens[currentScreenIndex]);
     }
 
-    private void Update()
+    public void ReturnMainMenu()
     {
+        currentScreenIndex = 0;
+        SceneManager.LoadScene(screens[currentScreenIndex]);
     }
 
-    public void GameOver()
+    public bool IsFinal()
     {
-        // Handle game over logic
+        return currentScreenIndex == screens.Count - 1;
     }
 
-    public void LoadNextLevel()
+    public void StartNewGame()
     {
-        // Logic to load next scene
+        coinsCount = 0;
+        killsCount = 0;
+        currentTime = 0;
+        isPaused = false;
+        StartCoroutine(StartTimer());
     }
 
     public void UpdateCoinsCount(int count)
     {
         coinsCount += count;
-        UICollectItemCount.instance.SetCoinsCount(coinsCount);
+        UIStats.instance.SetCoinsCount(coinsCount);
     }
-
+    
     public void UpdateKillsCount(int count)
     {
         killsCount += count;
-        UICollectItemCount.instance.SetKillsCount(killsCount);
+        UIStats.instance.SetKillsCount(killsCount);
     }
 
-    // private IEnumerator GameFlow()
-    // {
-    //     yield return StartCoroutine(stageManager.SpawnRandomAroundPlayer(20, 10f, enemyPrefabs));
-    //     yield return new WaitForSeconds(5f); // Nghỉ giữa các stage
+    private IEnumerator StartTimer()
+    {
+        isRunning = true;
+        while (isRunning)
+        {
+            UITimer.instance.SetTimer(currentTime);
+            yield return new WaitForSeconds(1f);
+            if (!isPaused) currentTime += 1f;
+        }
+    }
 
-    //     yield return StartCoroutine(stageManager.SpawnWaveAcrossScreen(enemyPrefabs, new Vector3(-10, 0, 0), new Vector3(10, 0, 0), 10, 3f));
-    //     yield return new WaitForSeconds(5f);
+    public void TogglePause(bool pause)
+    {
+        isPaused = pause;
+    }
 
-    //     yield return StartCoroutine(stageManager.SpawnCircleAroundPlayer(12, 5f, enemyPrefabs));
-    // }
+    public void EndGame(bool isVictory)
+    {
+        Time.timeScale = 0f;
+        isRunning = false;
+        ResultsUIController.instance.SetUp(
+            isVictory,
+            string.Format("{0:D1}:{1:D2}", Mathf.FloorToInt(currentTime / 60), Mathf.FloorToInt(currentTime % 60)),
+            killsCount,
+            coinsCount,
+            PlayerController.instance.getCurrentLevel()
+        );
+        PlayerController.instance.DestroyCompletely();
+        SkillsManager.instance.DestroyCompletely();
+        BuffsManager.instance.DestroyCompletely();
+    }
 }
-/*
-public static GameManager Instance;
-
-    public bool StopMoveing;
-    public bool Pause;
-    [Header("Player Stats")]
-    public float speed;
-    public float Damge;
-    public float ExpBoost;
-    public TMP_Text TextKill;
-    public int NumberOfKills;
-    public GameObject Panel;
-
-    private void Awake()
-    {
-        if (Instance != null)
-        {
-            Debug.LogError("More than one GameManger in scene");
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
-
-    void Update()
-    {
-        if(TextKill!=null)
-        TextKill.text = NumberOfKills.ToString();
-        if (Pause)
-        {
-            if(Panel!=null)
-            Panel.SetActive(true);
-            Time.timeScale = 0;
-        }
-        else
-        {
-            if (Panel != null)
-                Panel.SetActive(false);
-            Time.timeScale = 1;
-
-        }
-
-    }
-*/

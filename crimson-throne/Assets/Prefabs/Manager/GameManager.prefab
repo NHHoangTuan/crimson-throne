@@ -44,5 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266d5fb91b70d3d4da643432821d3efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 5014780906339877987, guid: 09013d2dd84db914caad35bf8c828923, type: 3}
   coinsCount: 0
   killsCount: 0
+  currentTime: 0
+  isRunning: 0
+  isPaused: 0
+  screens:
+  - MainMenu
+  - Map1
+  - Map2
+  currentScreenIndex: 0

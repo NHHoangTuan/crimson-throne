@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class LevelUpController : MonoBehaviour
 {
-
     public static LevelUpController instance { get; private set; }
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Transform layoutGroup;
@@ -33,11 +32,15 @@ public class LevelUpController : MonoBehaviour
         int randomSkillCount = Random.Range(0, 4); 
         int skillToTake = Mathf.Min(randomSkillCount, upgradableSkillsCount, inactiveSkills.Count + activeSkills.Count);
 
-        int buffToTake = 3 - skillToTake;
+        int randomBuffToTake = 3 - skillToTake;
         int upgradableBuffsCount = BuffsManager.instance.GetUpgradableCount();
-        buffToTake = Mathf.Min(buffToTake, upgradableBuffsCount, inactiveBuffs.Count + activeBuffs.Count);
+        int buffToTake = Mathf.Min(randomBuffToTake, upgradableBuffsCount, inactiveBuffs.Count + activeBuffs.Count);
+        
+        if (buffToTake < randomBuffToTake)
+        {   
+            skillToTake = Mathf.Min(3 - buffToTake, upgradableSkillsCount, inactiveSkills.Count + activeSkills.Count);
+        }
 
-        System.Random random = new System.Random();
         List<Ability> combinedSkills;
         if (SkillsManager.instance.IsFull())
         {
@@ -62,25 +65,15 @@ public class LevelUpController : MonoBehaviour
         return selectedAbilities.OrderBy(_ => random.Next()).ToList();;
     }
 
-    public void ShowLevelUpUI()
+    public void ShowLevelUpUI(int count)
     {
+        if (count == 0)
+        {
+            Close();
+            return;
+        }
         PauseGame();
-        DisplayLevelUpUI();
-        PopulateAbilityCards();
-    }
-    
-    private void PauseGame()
-    {
-        Time.timeScale = 0f;
-    }
-
-    private void DisplayLevelUpUI()
-    {
         UIManager.instance.levelUpPanel.SetActive(true);
-    }
-
-    private void PopulateAbilityCards()
-    {
         List<Ability> abilities = GetRandomAbilities();
         foreach (var ability in abilities)
         {
@@ -97,13 +90,19 @@ public class LevelUpController : MonoBehaviour
             
             levelUpButton.onClick.AddListener(() =>
             {
+                ClearCards();
                 ability.LevelUp();
-                Close();
+                ShowLevelUpUI(count - 1);
             });            
         }
     }
+    
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+    }
 
-    public void Close()
+    private void Close()
     {
         UIManager.instance.levelUpPanel.SetActive(false);
         Time.timeScale = 1f;

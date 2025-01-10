@@ -97,7 +97,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4433954140951191017}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.212613, y: 13.551156, z: -9.939159}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -107,7 +107,6 @@ Transform:
   - {fileID: 61964210509110225}
   - {fileID: 5227308050045301363}
   - {fileID: 7362297181494500865}
-  - {fileID: 6328447448711333785}
   - {fileID: 7277215708650174729}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -126,12 +125,11 @@ MonoBehaviour:
   activeSkills: []
   inactiveSkills:
   - {fileID: 1411438135541937942}
-  - {fileID: 2508561783786629596}
-  - {fileID: 8020185928145906480}
   - {fileID: 4631808767958894070}
-  - {fileID: 2076978415749849669}
-  - {fileID: 1829304203448088073}
+  - {fileID: 8020185928145906480}
   - {fileID: 2052231501400556149}
+  - {fileID: 2076978415749849669}
+  - {fileID: 2508561783786629596}
   maxSkills: []
 --- !u!1 &4460596487797780179
 GameObject:
@@ -243,7 +241,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   artwork: {fileID: 3124047758486579557, guid: 3d50f1f631c10d347998250d726347f3, type: 3}
   prefab: {fileID: 8398722825223022376, guid: 50c442fcde2227f479de4cce452a7338, type: 3}
-  maxDistance: 10
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  maxDistance: 4
   duration: 0.7
   cooldown: 4
   descriptions:
@@ -317,6 +318,7 @@ MonoBehaviour:
   - Base Damage up by 5. Cooldown down by 0.3 seconds.
   - Fires 1 more projectile.
   - 
+  projectilesCount: 000000000100000001000000020000000200000003000000
   cooldown:
   - 0
   - 3
@@ -331,78 +333,6 @@ MonoBehaviour:
   - 13
   - 18
   - 18
-  projectilesCount: 000000000100000001000000020000000200000003000000
---- !u!1 &7157709121562388024
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6328447448711333785}
-  - component: {fileID: 1829304203448088073}
-  m_Layer: 0
-  m_Name: ShurikenSkill
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6328447448711333785
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7157709121562388024}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8889240116541826228}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1829304203448088073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7157709121562388024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80222d5faf8c87f4fa58cdc6185274e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  artwork: {fileID: 21300000, guid: 6c05994028f9209448e07d34c5d855e2, type: 3}
-  prefab: {fileID: 7157709121562388024}
-  startkDistance: 0.5
-  attackDistance: 2.5
-  velocity: 5
-  descriptions:
-  - 
-  - Summon 4 shurikens, pass through enemies.
-  - Base Damage up by 5.
-  - Reduce Cooldown by 0.2s.
-  - Base Damage up by 5.
-  - Reduce Cooldown by 0.3s.
-  - 
-  cooldown:
-  - 0
-  - 2
-  - 2
-  - 1.8
-  - 1.8
-  - 1.5
-  damage:
-  - 0
-  - 5
-  - 10
-  - 10
-  - 15
-  - 15
 --- !u!1 &7957899268929517344
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +459,6 @@ MonoBehaviour:
   rotationSpeed: 360
   maxAngleOffset: 45
   cooldown: 4
-  pierce: 3
   descriptions:
   - 
   - Summon 1 hammer with high damage.

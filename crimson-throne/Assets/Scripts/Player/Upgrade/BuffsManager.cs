@@ -16,6 +16,11 @@ public class BuffsManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -28,7 +33,7 @@ public class BuffsManager : MonoBehaviour
     {
         activeBuffs.Add(ability);
         inactiveBuffs.Remove(ability);
-        UIAbilityIcon.instance.AddBuffIcon(ability.GetArtwork(), activeBuffs.Count - 1);
+        UIAbilities.instance.AddBuffIcon(ability.GetArtwork(), activeBuffs.Count - 1);
     }
 
     public void MoveToMaxBuffs(Ability ability)
@@ -41,5 +46,13 @@ public class BuffsManager : MonoBehaviour
     {
         return (activeBuffs.Count + maxBuffs.Count == MAX_BUFFS);
     }
-}
 
+    public void DestroyCompletely()
+    {
+        if (instance == this)
+        {
+            instance = null;
+            Destroy(gameObject);
+        }
+    }
+}

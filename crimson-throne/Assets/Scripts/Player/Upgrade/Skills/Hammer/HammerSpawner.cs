@@ -11,7 +11,6 @@ public class HammerSpawner : Ability
     [SerializeField] private float rotationSpeed = 360f;
     [SerializeField] private float maxAngleOffset = 45f;
     [SerializeField] private float cooldown = 4f;
-    [SerializeField] private int pierce = 3;
     [SerializeField] private string[] descriptions = {
         "",
         "Summon 1 hammer with high damage.",
@@ -41,12 +40,16 @@ public class HammerSpawner : Ability
         description = descriptions[currentLevel + 1];
     }
     
+    public float GetCurrentDamage()
+    {
+        return damage[currentLevel];
+    }
+    
     public override void LevelUp()
     {
         if (currentLevel < maxLevel)
         {
             currentLevel++;
-            description = descriptions[currentLevel + 1];
         }
         if (currentLevel == 1)
         {
@@ -56,6 +59,10 @@ public class HammerSpawner : Ability
         if (currentLevel == maxLevel)
         {
             SkillsManager.instance.MoveToMaxSkills(this);
+        }
+        else 
+        {
+            description = descriptions[currentLevel + 1];
         }
     }
 

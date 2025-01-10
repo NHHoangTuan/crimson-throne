@@ -3,19 +3,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewWave", menuName = "WaveSystem/Wave")]
 public class Wave : ScriptableObject
 {
-    public string waveName;
-    public float duration;
-    public int totalEnemies;
+    public string waveName = "Enemies Wave";
+    public WaveType waveType = WaveType.NORMAL_WAVE;
+    public float duration = 60;
     public float spawnInterval = 5f;
+    public int totalEnemies = 0;
     public GameObject[] enemyPrefabs;
-    public GameObject bossPrefab;
-    public bool hasBoss;
-    public MapEventType mapEvent;
 }
 
-public enum MapEventType
+public enum WaveType
 {
-    NONE,
-    ENEMY_WALL,
-    ENEMY_CIRCLE,
+    NORMAL_WAVE,
+    MINI_BOSS,
+    FINAL_BOSS
 }

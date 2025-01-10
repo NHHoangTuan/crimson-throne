@@ -3,14 +3,17 @@ using UnityEngine;
 
 public class WelcomeUIController : MonoBehaviour
 {
-    public static WelcomeUIController instance;
+    public static WelcomeUIController instance { get; private set; }
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
 
-    public void OpenMainMenuScreen()
+    public void GoToMainMenuScreen()
     {
         UIManager.instance.OpenMainMenuScreen();
     }

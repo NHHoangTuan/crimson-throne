@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class UICardDisplay : MonoBehaviour 
 {
-
     [SerializeField] private Text nameText;
     [SerializeField] private Text descriptionText;
     [SerializeField] private Image artworkImage;
+    [SerializeField] private Image template;
     [SerializeField] private Text levelText;
     [SerializeField] private Text newLabelText;
 
@@ -22,5 +22,11 @@ public class UICardDisplay : MonoBehaviour
 		artworkImage.sprite = ability.GetArtwork();
 		levelText.text = nextLevel.ToString();
 		newLabelText.text = nextLevel == 1 ? "New" : "";
+		if (nextLevel == ability.GetMaxLevel())
+		{
+			Color goldenColor = new Color(1f, 0.843f, 0f);
+    		template.color = goldenColor;
+			newLabelText.text = "Max";
+		}
 	}
 }

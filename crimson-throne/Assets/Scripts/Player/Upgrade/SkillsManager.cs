@@ -16,6 +16,11 @@ public class SkillsManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -28,7 +33,7 @@ public class SkillsManager : MonoBehaviour
     {
         activeSkills.Add(ability);
         inactiveSkills.Remove(ability);
-        UIAbilityIcon.instance.AddSkillIcon(ability.GetArtwork(), activeSkills.Count - 1);
+        UIAbilities.instance.AddSkillIcon(ability.GetArtwork(), activeSkills.Count - 1);
     }
 
     public void MoveToMaxSkills(Ability ability)
@@ -41,5 +46,13 @@ public class SkillsManager : MonoBehaviour
     {
         return (activeSkills.Count + maxSkills.Count  == MAX_SKILLS);
     }
-}
 
+    public void DestroyCompletely()
+    {
+        if (instance == this)
+        {
+            instance = null;
+            Destroy(gameObject);
+        }
+    }
+}

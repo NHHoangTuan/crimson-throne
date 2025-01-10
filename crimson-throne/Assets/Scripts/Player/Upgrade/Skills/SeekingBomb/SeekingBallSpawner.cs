@@ -40,13 +40,17 @@ public class SeekingBombSpawner : Ability
         description = descriptions[currentLevel + 1];
         Image imageComponent = prefab.GetComponentInChildren<Image>();
     }
+    
+    public float GetCurrentDamage()
+    {
+        return damage[currentLevel];
+    }
 
     public override void LevelUp()
     {
         if (currentLevel < maxLevel)
         {
             currentLevel++;
-            description = descriptions[currentLevel + 1];
         }
         if (currentLevel == 1)
         {
@@ -56,6 +60,10 @@ public class SeekingBombSpawner : Ability
         if (currentLevel == maxLevel)
         {
             SkillsManager.instance.MoveToMaxSkills(this);
+        }
+        else 
+        {
+            description = descriptions[currentLevel + 1];
         }
     }
 

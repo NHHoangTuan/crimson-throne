@@ -45,5 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expItem: {fileID: 2339362434983513934, guid: ef2e36a41cd5194408c4b6d64d7eacfa, type: 3}
-  coinItem: {fileID: 2339362434983513934, guid: ef2e36a41cd5194408c4b6d64d7eacfa, type: 3}
-  healthItem: {fileID: 2339362434983513934, guid: ef2e36a41cd5194408c4b6d64d7eacfa, type: 3}
+  coinItem: {fileID: 2339362434983513934, guid: b9d15966012b6204e8c4c1c7b87246f4, type: 3}
+  healthItem: {fileID: 2339362434983513934, guid: d1768a38b2655f241851167f9fc0b4b4, type: 3}
+  keyItem: {fileID: 7355883693687790215, guid: 398b4e6e1ab549d4ab2870392d7319b3, type: 3}
+  gateItem: {fileID: 3577142544701906557, guid: d3706bb571a762c49ba39b19b7d4101e, type: 3}

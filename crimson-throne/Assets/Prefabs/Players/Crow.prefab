@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7119294201361494637}
   - component: {fileID: 2952665284927742971}
   m_Layer: 6
-  m_Name: Canvas
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -397,6 +397,7 @@ MonoBehaviour:
   growth: 1
   magnet: 1.5
   lookDirection: {x: 1, y: 0}
+  deathEffect: {fileID: 965518837548101591, guid: d9fbd02aea997d542a4ab20c4efdbde9, type: 3}
   maxLevel: 31
   currentLevel: 0
   currentExperience: 0
@@ -562,8 +563,6 @@ MonoBehaviour:
   magnetRatio: 1
   growthRatio: 1
   damageRatio: 1
-  amountBonus: 0
   cooldownRatio: 1
   velocityRatio: 1
   durationRatio: 1
-  areaRatio: 1

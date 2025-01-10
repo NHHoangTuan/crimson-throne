@@ -1,10 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class ExpItem : MonoBehaviour
 {
     [SerializeField] private float expValue = 2f;
-    [SerializeField] private float attractSpeed = 6f;
-    [SerializeField] private bool isAdvanced = false;
+    [SerializeField] private float attractSpeed = 5f;
     [SerializeField] private bool isAttracting = false;
     private Rigidbody2D rb2d;
     private Rigidbody2D characterRb2d;
@@ -35,10 +35,6 @@ public class ExpItem : MonoBehaviour
 
     private void Collect()
     {   
-        if (isAdvanced)
-        {
-            expValue = PlayerController.instance.GetRequiredExpToLevelUp();
-        }
         PlayerController.instance.AddExperience(expValue);
         Destroy(gameObject);
     }

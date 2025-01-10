@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7337187305760570381}
   - component: {fileID: 183512955349252235}
   - component: {fileID: 8179004405175508549}
+  - component: {fileID: 4144097746625002392}
   m_Layer: 0
   m_Name: MagicBallAbility
   m_TagString: Untagged
@@ -124,7 +125,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.005321026, y: 0}
+  m_Offset: {x: -0.0012288094, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -134,7 +135,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.52170277, y: 0.5470123}
+  m_Size: {x: 0.51351833, y: 0.5142727}
   m_EdgeRadius: 0
 --- !u!50 &183512955349252235
 Rigidbody2D:
@@ -185,3 +186,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4144097746625002392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2932644843166666087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2307e795004d26e47b21ab4a4ccdc35a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockback: 1

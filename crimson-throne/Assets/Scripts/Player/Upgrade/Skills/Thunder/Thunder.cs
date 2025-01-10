@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class Thunder : MonoBehaviour
 {
-    [SerializeField] private float projectileInterval = 0.05f;
-    [SerializeField] private float knockback = 1f;
-    
     void OnTriggerEnter2D(Collider2D other)
     {
-        
-    }
-
-    void OnTriggerStay2D(Collider2D other)
-    {
-        
+        EnemyController enemy = other.GetComponent<EnemyController>();
+        if (enemy != null)
+        {
+            enemy?.TakeDamage(ThunderSpawner.instance.GetCurrentDamage() * PlayerAttributeBuffs.instance.damageRatio, 0.1f);
+        }
     }
 }

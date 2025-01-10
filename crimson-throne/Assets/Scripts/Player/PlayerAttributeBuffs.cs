@@ -12,30 +12,29 @@ public class PlayerAttributeBuffs : MonoBehaviour
 
     // SKILL
     public float damageRatio = 1;
-    public int amountBonus = 0;
     public float cooldownRatio = 1;
     public float velocityRatio = 1;
     public float durationRatio = 1;
-    public float areaRatio = 1;
     
     public static PlayerAttributeBuffs instance { get; private set; }
 
     void Awake() 
     {
-        instance = this;
+        if (instance == null) 
+        {
+            instance = this;
+        }
     }
 
     public void Reset() 
     {
         maxHealthBonus = 0;
         armorBonus = 0;
-        amountBonus = 0;
         speedRatio = 1;
         magnetRatio = 1;
         damageRatio = 1;
         cooldownRatio = 1;
         velocityRatio = 1;
         durationRatio = 1;
-        areaRatio = 1;
     }
 }

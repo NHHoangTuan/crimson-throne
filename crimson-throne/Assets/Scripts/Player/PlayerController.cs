@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,9 +22,11 @@ public class PlayerController : MonoBehaviour
     public Vector2 lookDirection = new Vector2(1, 0);
 
     // TAKE DAMAGE
+    [SerializeField] private GameObject deathEffect;
     private float timeInvincible = 0.5f;
     private bool isInvicible;
     private float invicibleTimer;
+    private bool isDefeated = false;
 
     // AUDIO
     private AudioSource audioSource;
@@ -34,6 +37,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int maxLevel = 31;
     [SerializeField] private int currentLevel = 0;
     [SerializeField] private float currentExperience = 0;
+    private float timeAdding = 0.5f;
+    private float addingTimer = 0.5f;
 
     // INSTANCE
     public static PlayerController instance{get; private set;}
@@ -43,6 +48,11 @@ public class PlayerController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -53,23 +63,29 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         
-        maxHealth += PlayerAttributeBuffs.instance.maxHealthBonus;
+        int healthPowerUp = PlayerPrefs.GetInt("PowerUp" + PowerUpType.HEALTH);
+        int armorPowerUp = PlayerPrefs.GetInt("PowerUp" + PowerUpType.ARMOR);
+        int speedPowerUp = PlayerPrefs.GetInt("PowerUp" + PowerUpType.SPEED);
+        int magnetPowerUp = PlayerPrefs.GetInt("PowerUp" + PowerUpType.MAGNET);
+        int growthPowerUp = PlayerPrefs.GetInt("PowerUp" + PowerUpType.GROWTH);
+        maxHealth += 5 * healthPowerUp;
         currentHealth = maxHealth;
-        armor += PlayerAttributeBuffs.instance.armorBonus;
-        speed *= PlayerAttributeBuffs.instance.speedRatio;
-        magnet *= PlayerAttributeBuffs.instance.magnetRatio;
-        growth *= PlayerAttributeBuffs.instance.growthRatio;
+        armor += armorPowerUp;
+        speed += 0.05f * speedPowerUp;
+        magnet += 0.05f * magnetPowerUp;
+        growth += 0.05f * growthPowerUp;
 
         inputActions.Player.Enable();
         inputActions.Player.Move.performed += OnMovement;
         inputActions.Player.Move.canceled += OnMovement;
 
         UIExpBar.instance.SetValue(currentExperience / ExperienceRequiredForLevel(currentLevel + 1));
-        UIDialog.instance.SetLevelText(currentLevel);
+        UIExpBar.instance.SetLevelText(currentLevel);
     }
 
     void Update()
     {
+        if (isDefeated) return;
         AttractNearbyExpItems();
         if (isInvicible)
         {
@@ -79,6 +95,12 @@ public class PlayerController : MonoBehaviour
                 isInvicible = false;
             }
         }   
+        addingTimer -= Time.deltaTime;
+        if (addingTimer < 0)
+        {
+            addingTimer = timeAdding;
+            LevelUp();
+        }
     }
 
     void FixedUpdate()
@@ -126,10 +148,19 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("Hit");
             isInvicible = true;
             invicibleTimer = timeInvincible;
-            amount = Mathf.Clamp(amount + armor + PlayerAttributeBuffs.instance.amountBonus, amount, 0);
+            amount = Mathf.Clamp(amount + armor + PlayerAttributeBuffs.instance.armorBonus, amount, 0);
         }
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    public bool IsFullHealth()
+    {
+        return currentHealth == maxHealth;
     }
 
     void AttractNearbyExpItems()
@@ -170,21 +201,20 @@ public class PlayerController : MonoBehaviour
             return;
         }
         currentExperience += amount * growth * PlayerAttributeBuffs.instance.growthRatio;
-        if (currentLevel < maxLevel && currentExperience >= ExperienceRequiredForLevel(currentLevel + 1))
+    }
+
+    private void LevelUp()
+    {
+        int upgradeCount = 0;
+        while (currentLevel < maxLevel && currentExperience >= ExperienceRequiredForLevel(currentLevel + 1))
         {
+            LevelUpController.instance.PauseGame();
             float experienceRequired = ExperienceRequiredForLevel(currentLevel + 1);
             currentExperience -= experienceRequired;
             ++currentLevel;
-
-            LevelUpController.instance.ShowLevelUpUI();
-
-            experienceRequired = ExperienceRequiredForLevel(currentLevel + 1);
-            if (currentExperience >= experienceRequired)
-            {
-                currentExperience = experienceRequired - 1;
-            }
+            ++upgradeCount;
         }
-        UIDialog.instance.SetLevelText(currentLevel);
+        UIExpBar.instance.SetLevelText(currentLevel);
         if (currentLevel == maxLevel)
         {
             UIExpBar.instance.SetValue(1);
@@ -193,224 +223,43 @@ public class PlayerController : MonoBehaviour
         {
             UIExpBar.instance.SetValue(currentExperience / ExperienceRequiredForLevel(currentLevel + 1));
         }
+        LevelUpController.instance.ShowLevelUpUI(upgradeCount);
+    }
+
+    public int getCurrentLevel()
+    {
+        return currentLevel;
+    }
+
+    public void DestroyCompletely()
+    {
+        if (instance == this)
+        {
+            instance = null;
+            Destroy(gameObject);
+        }
+    }
+
+    private void Die()
+    {
+        isDefeated = true;
+        rb2d.linearVelocity = Vector2.zero;
+        GetComponent<Collider2D>().enabled = false;
+
+        animator.SetTrigger("Dead");     
+        if (deathEffect != null)
+        {
+            GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
+            Destroy(effect, effect.GetComponent<ParticleSystem>().main.duration);
+        }
+        StartCoroutine(HandleDeathAnimation());
+    }
+
+    private IEnumerator HandleDeathAnimation()
+    {
+        AnimatorStateInfo animationInfo = animator.GetCurrentAnimatorStateInfo(0);
+        float animationDuration = animationInfo.length;
+        yield return new WaitForSeconds(animationDuration);
+        GameManager.instance.EndGame(false);
     }
 }
-
-// public void Die()
-// {
-//     inputActions.Player.Disable();
-//     animator.SetTrigger("Die");
-//     rb2d.simulated = false;
-//     Destroy(gameObject, 1f);
-//     PlayerAttributeBuffs.instance.Reset();
-// }
-// using System.Collections.Generic;
-// using UnityEngine;
-// using UnityEngine.InputSystem;
-
-// public class PlayerController : MonoBehaviour
-// {
-//     // Singleton instance.
-//     public static PlayerController instance;
-
-//     [Space(10)]
-//     // Animator component.
-//     public Animator animator;
-//     // SpriteRenderer component.
-//     public SpriteRenderer spriteRenderer;
-//     // List of footstep particles.
-//     public List<ParticleSystem> footParticles;
-
-//     [Space(10)]
-//     // Player movement speed.
-//     public float speed = 3f;
-//     // Speed multiplier for leveling up.
-//     public float speedMultiplier = 1.1f;
-
-//     [Space(10)]
-//     // Pickup range for weapons.
-//     public float pickupRange = 1.5f;
-//     // Pickup range multiplier for leveling up.
-//     public float pickupRangeMultiplier = 1.1f;
-
-//     [Space(10)]
-//     // Distance traveled by the player.
-//     public float playerDistance;
-
-//     [Space(10)]
-//     // Maximum number of weapons.
-//     public int maxWeapons = 3;
-//     // List of unassigned weapons.
-//     public List<Weapon> unassignedWeapons;
-//     // List of assigned weapons.
-//     public List<Weapon> assignedWeapons;
-//     // List of all weapons.
-//     public List<Weapon> listWeapons;
-
-//     [HideInInspector]
-//     // Fully levelled weapons.
-//     public List<Weapon> fullyLevelledWeapons = new List<Weapon>();
-
-//     [HideInInspector]
-//     // Flag for chest state.
-//     public bool isChestClosed = true;
-//     [HideInInspector]
-//     // Flag for spawned chest.
-//     public bool isChestSpawned = false;
-
-//     [HideInInspector]
-//     // List of dialogue triggers.
-//     public List<DialogueTrigger> dialogueTriggers = new List<DialogueTrigger>();
-
-//     // Movement vector.
-//     Vector3 movement;
-
-//     private void Awake()
-//     {
-//         // Set instance as this.
-//         instance = this;
-//     }
-
-//     void Start()
-//     {
-//         // Add a weapon if no weapons are assigned.
-//         if (assignedWeapons.Count == 0)
-//         {
-//             AddWeapon(Random.Range(0, unassignedWeapons.Count));
-//         }
-//     }
-
-//     // Movement input handler.
-//     private void OnMovement(InputValue value)
-//     {
-//         Vector2 inputMovement = value.Get<Vector2>();
-//         movement = new Vector3(inputMovement.x, inputMovement.y, 0);
-//     }
-
-//     // Open dialogue handler.
-//     public void OnOpenDialogue()
-//     {
-//         foreach (DialogueTrigger trigger in dialogueTriggers)
-//         {
-//             if (trigger.isInRange && !DialogueManager.instance.isDialogueOpen)
-//             {
-//                 trigger.TriggerDialogue();
-//             }
-//         }
-//     }
-
-//     // Next sentence handler.
-//     public void OnNextSentence()
-//     {
-//         DialogueManager.instance.DisplayNextSentence();
-//     }
-
-//     // Fixed update for movement.
-//     private void FixedUpdate()
-//     {
-//         transform.position += movement * speed * Time.fixedDeltaTime;
-
-//         float distanceThisFrame = movement.magnitude * speed * Time.fixedDeltaTime;
-//         playerDistance += distanceThisFrame;
-
-//         // Flip player sprite.
-//         Flip();
-//         // Handle running animation and particles.
-//         Running();
-//     }
-
-//     // Flip player sprite based on movement direction.
-//     private void Flip()
-//     {
-//         if (movement.x > 0)
-//         {
-//             spriteRenderer.flipX = false;
-//         }
-//         else if (movement.x < 0)
-//         {
-//             spriteRenderer.flipX = true;
-//         }
-//     }
-
-//     // Handle running animation and particles.
-//     private void Running()
-//     {
-//         foreach (ParticleSystem particles in footParticles)
-//         {
-//             if (movement.magnitude > 0)
-//             {
-//                 animator.SetBool("isRunning", true);
-
-//                 if (!particles.isPlaying)
-//                 {
-//                     particles.Play();
-//                     SFXManager.instance.PlaySFX(0);
-//                 }
-//             }
-//             else
-//             {
-//                 animator.SetBool("isRunning", false);
-
-//                 if (particles.isPlaying)
-//                 {
-//                     particles.Stop();
-//                     SFXManager.instance.StopSFX(0);
-//                 }
-//             }
-//         }
-//     }
-
-//     // Add a weapon to the player's inventory by index.
-//     public void AddWeapon(int weaponNumber)
-//     {
-//         if (weaponNumber < unassignedWeapons.Count)
-//         {
-//             if (unassignedWeapons[weaponNumber].tag == "PlayerUpdate")
-//             {
-//                 for (int i = 0; i < unassignedWeapons.Count; i++)
-//                 {
-//                     if (i != weaponNumber && unassignedWeapons[i].tag != "PlayerUpdate")
-//                     {
-//                         weaponNumber = i;
-//                         break;
-//                     }
-//                 }
-//             }
-
-//             assignedWeapons.Add(unassignedWeapons[weaponNumber]);
-//             listWeapons.Add(unassignedWeapons[weaponNumber]);
-
-//             unassignedWeapons[weaponNumber].gameObject.SetActive(true);
-
-//             unassignedWeapons.RemoveAt(weaponNumber);
-//         }
-//     }
-
-//     // Add a weapon to the player's inventory directly.
-//     public void AddWeapon(Weapon weaponToAdd)
-//     {
-//         weaponToAdd.gameObject.SetActive(true);
-
-//         assignedWeapons.Add(weaponToAdd);
-
-//         if (weaponToAdd.tag != "PlayerUpdate")
-//         {
-//             listWeapons.Add(weaponToAdd);
-//         }
-
-//         unassignedWeapons.Remove(weaponToAdd);
-//     }
-
-//     // Level up speed.
-//     public void SpeedLevelUp()
-//     {
-//         speed *= speedMultiplier;
-//     }
-    
-
-//     // Level up pickup range.
-//     public void PickupRangeLevelUp()
-//     {
-//         pickupRange *= pickupRangeMultiplier;
-//     }
-// }

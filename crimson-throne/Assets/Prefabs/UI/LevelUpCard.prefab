@@ -432,6 +432,7 @@ MonoBehaviour:
   nameText: {fileID: 3874639029138916559}
   descriptionText: {fileID: 5470472097526506856}
   artworkImage: {fileID: 1015798130481570536}
+  template: {fileID: 5112165170572879409}
   levelText: {fileID: 7891004805503441341}
   newLabelText: {fileID: 4956808717215953401}
 --- !u!1 &4556497868809191301
