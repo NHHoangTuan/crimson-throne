@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Map1_W02
   m_EditorClassIdentifier: 
   waveName: SkeletonSpawn
-  waveType: 1
-  duration: 20
-  spawnInterval: 4
-  totalEnemies: 20
+  waveType: 0
+  duration: 80
+  spawnInterval: 5
+  totalEnemies: 100
   enemyPrefabs:
   - {fileID: 2064929725463121462, guid: 6cf614d66bb462f47888db0daa07482c, type: 3}

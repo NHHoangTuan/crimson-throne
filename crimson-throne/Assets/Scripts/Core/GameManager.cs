@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         ++currentScreenIndex;
         if (currentScreenIndex >= screens.Count) return;
+        UIBackground.instance.PlayAnimation();
         SceneManager.LoadScene(screens[currentScreenIndex]);
     }
 

@@ -27,7 +27,6 @@ public class MapManager : MonoBehaviour
                 // UI
                 UIManager.instance.OpenInGameScreen();
                 UIAbilities.instance.Reset();
-                UIBackground.instance.PlayAnimation();
                 // Audio
                 AudioManager.instance.PlayMusic(AudioManager.instance.gameMusicLoopBackground);
                 // Set Up Game Stats
