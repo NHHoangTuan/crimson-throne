@@ -25,16 +25,4 @@ public class PlayerAttributeBuffs : MonoBehaviour
             instance = this;
         }
     }
-
-    public void Reset() 
-    {
-        maxHealthBonus = 0;
-        armorBonus = 0;
-        speedRatio = 1;
-        magnetRatio = 1;
-        damageRatio = 1;
-        cooldownRatio = 1;
-        velocityRatio = 1;
-        durationRatio = 1;
-    }
 }

@@ -14,7 +14,7 @@ public class CoinItem : MonoBehaviour
 
     private void Collect()
     {
-        GameManager.instance.UpdateCoinsCount(coinValue);
+        GameManager.instance?.UpdateCoinsCount(coinValue);
         Destroy(gameObject);
     }
 

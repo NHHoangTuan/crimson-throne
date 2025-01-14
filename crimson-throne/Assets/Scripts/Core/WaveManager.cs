@@ -21,12 +21,20 @@ public class WaveManager : MonoBehaviour
     
     public void StartGame()
     {
-        StartCoroutine(GameFlow());
-        player = PlayerController.instance.transform;
+        player = PlayerController.instance?.transform;
+        if (player != null)
+        {
+            StartCoroutine(GameFlow());
+        }
+        else
+        {
+            Debug.LogError("Player not found! GameFlow will not start.");
+        }
     }
 
     private IEnumerator GameFlow()
     {
+        yield return new WaitForSeconds(5f);
         foreach (Wave wave in waves)
         {
             yield return StartCoroutine(StartWave(wave));
@@ -50,16 +58,14 @@ public class WaveManager : MonoBehaviour
                 {
                     if (enemiesAlive >= maxEnemiesAlive) yield return null;
 
-                    SpawnMultipleEnemies(wave.enemyPrefabs, enemiesPerSpawn[i], pos => 
-                        ItemSpawner.instance?.SpawnExp(2, pos));
+                    SpawnMultipleEnemies(wave.enemyPrefabs, enemiesPerSpawn[i]);
                     yield return new WaitForSeconds(spawnInterval);
                 }
                 break;
             case WaveType.MINI_BOSS:
-                if (wave.enemyPrefabs.Length > 0)
+                for (int i = 0; i < wave.totalEnemies; i++)
                 {
-                    SpawnEnemy(wave.enemyPrefabs[0], pos => 
-                        ItemSpawner.instance?.SpawnExp(Random.Range(10, 21), pos));
+                    SpawnEnemy(wave.enemyPrefabs[0], null);
                 }
                 yield return new WaitForSeconds(wave.duration);
                 break;
@@ -95,12 +101,13 @@ public class WaveManager : MonoBehaviour
         enemiesAlive++;
     }
 
-    private void SpawnMultipleEnemies(GameObject[] prefabs, int count, System.Action<Vector2> onDie)
+    private void SpawnMultipleEnemies(GameObject[] prefabs, int count)
     {
         if (prefabs.Length == 0) return;
         for (int i = 0; i < count; i++)
         {
-            SpawnEnemy(prefabs[Random.Range(0, prefabs.Length)], onDie);
+            int randomIndex = Random.Range(0, prefabs.Length);
+            SpawnEnemy(prefabs[randomIndex], null);
         }
     }
 

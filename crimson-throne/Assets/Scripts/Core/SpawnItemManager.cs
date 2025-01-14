@@ -22,17 +22,22 @@ public class SpawnItemManager : MonoBehaviour
 
     private IEnumerator SpawnItemsPeriodically()
     {
+        yield return new WaitForSeconds(20f);
         while (true)
         {
-            for (int i = 0; i < Random.Range(6,9); i++)
+            int coinCount = Random.Range(4, 6);
+            for (int i = 0; i < coinCount; i++)
             {
                 Vector2 randomPosition = GetRandomPositionInRectangle();
-                ItemSpawner.instance.SpawnCoin(randomPosition);
-                yield return new WaitForSeconds(5f);
+                ItemSpawner.instance?.SpawnCoin(randomPosition);
+                yield return new WaitForSeconds(15f);
             }
-            yield return new WaitForSeconds(10f);
+
+            yield return new WaitForSeconds(5f);
+
             Vector2 healthItemPosition = GetRandomPositionInRectangle();
-            ItemSpawner.instance.SpawnHealthItem(healthItemPosition);
+            ItemSpawner.instance?.SpawnHealthItem(healthItemPosition);
+
             yield return new WaitForSeconds(20f);
         }
     }

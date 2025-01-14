@@ -43,14 +43,37 @@ public class GameManager : MonoBehaviour
     {
         ++currentScreenIndex;
         if (currentScreenIndex >= screens.Count) return;
-        UIBackground.instance.PlayAnimation();
-        SceneManager.LoadScene(screens[currentScreenIndex]);
+        
+        StartCoroutine(LoadSceneAsync(screens[currentScreenIndex]));
     }
 
     public void ReturnMainMenu()
     {
         currentScreenIndex = 0;
         SceneManager.LoadScene(screens[currentScreenIndex]);
+    }
+
+    private IEnumerator LoadSceneAsync(string sceneName)
+    {
+        UIBackground.instance?.Show();
+        
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+        if (operation != null)
+        {
+            operation.allowSceneActivation = false;
+
+            while (!operation.isDone)
+            {
+                if (operation.progress >= 0.9f && UIBackground.instance != null && UIBackground.instance.IsAnimationDone())
+                {
+                    operation.allowSceneActivation = true;
+                }
+                yield return null;
+            }
+        }
+
+        UIBackground.instance?.Hide();
     }
 
     public bool IsFinal()
@@ -69,14 +92,13 @@ public class GameManager : MonoBehaviour
 
     public void UpdateCoinsCount(int count)
     {
-        coinsCount += count;
-        UIStats.instance.SetCoinsCount(coinsCount);
+        UIStats.instance?.SetCoinsCount(coinsCount += count);
     }
     
     public void UpdateKillsCount(int count)
     {
         killsCount += count;
-        UIStats.instance.SetKillsCount(killsCount);
+        UIStats.instance?.SetKillsCount(killsCount);
     }
 
     private IEnumerator StartTimer()
@@ -84,7 +106,7 @@ public class GameManager : MonoBehaviour
         isRunning = true;
         while (isRunning)
         {
-            UITimer.instance.SetTimer(currentTime);
+            UITimer.instance?.SetTimer(currentTime);
             yield return new WaitForSeconds(1f);
             if (!isPaused) currentTime += 1f;
         }
@@ -99,15 +121,15 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         isRunning = false;
-        ResultsUIController.instance.SetUp(
+        ResultsUIController.instance?.SetUp(
             isVictory,
             string.Format("{0:D1}:{1:D2}", Mathf.FloorToInt(currentTime / 60), Mathf.FloorToInt(currentTime % 60)),
             killsCount,
             coinsCount,
             PlayerController.instance.getCurrentLevel()
         );
-        PlayerController.instance.DestroyCompletely();
-        SkillsManager.instance.DestroyCompletely();
-        BuffsManager.instance.DestroyCompletely();
+        PlayerController.instance?.DestroyCompletely();
+        SkillsManager.instance?.DestroyCompletely();
+        BuffsManager.instance?.DestroyCompletely();
     }
 }

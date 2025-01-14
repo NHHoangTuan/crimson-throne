@@ -78,9 +78,6 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Enable();
         inputActions.Player.Move.performed += OnMovement;
         inputActions.Player.Move.canceled += OnMovement;
-
-        UIExpBar.instance.SetValue(currentExperience / ExperienceRequiredForLevel(currentLevel + 1));
-        UIExpBar.instance.SetLevelText(currentLevel);
     }
 
     void Update()

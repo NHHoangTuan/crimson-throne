@@ -12,7 +12,11 @@ public class ExpItem : MonoBehaviour
     private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        characterRb2d = PlayerController.instance.GetComponent<Rigidbody2D>();
+        characterRb2d = PlayerController.instance?.GetComponent<Rigidbody2D>();
+        if (characterRb2d == null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Update()

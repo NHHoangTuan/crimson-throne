@@ -312,6 +312,20 @@ MonoBehaviour:
   gymPhonkBackground: {fileID: 8300000, guid: 1f12217c4abffc94284eda1609469686, type: 3}
   lofiOrchestraBackground: {fileID: 8300000, guid: b3c0124f22ec56e4e8fac146d95ae962, type: 3}
   vampireSoundtrackBackground: {fileID: 8300000, guid: 718945fac056d5547a2a43c0c53bfbcf, type: 3}
-  levelUpSound: {fileID: 8300000, guid: d09da440183c57f4cb7be22a7ce90b6a, type: 3}
-  healSound: {fileID: 8300000, guid: c3e565b24250acd47bfe8a92b261086f, type: 3}
-  gameOverSound: {fileID: 8300000, guid: 193e4492d83e6384a80caf91b849af4d, type: 3}
+  coinCollect: {fileID: 8300000, guid: 472e44c3440fa444db4cfcf539fb66bd, type: 3}
+  healthCollect: {fileID: 8300000, guid: f6bb0a14b39be7c428483c89839e2f0a, type: 3}
+  expCollect: {fileID: 8300000, guid: 77fa7c01d08e37a449517228b278dc72, type: 3}
+  katana: {fileID: 8300000, guid: b2237e95085ec164280554357bddba13, type: 3}
+  hammer: {fileID: 8300000, guid: df5e70224e7739548b76bcfef3b6aaba, type: 3}
+  magicBall: {fileID: 8300000, guid: f0f465ee2f4559c449e9a3956ad93b15, type: 3}
+  seekingBomb: {fileID: 8300000, guid: 1785ddd7de17e004696651fd730c436e, type: 3}
+  thunder: {fileID: 8300000, guid: 7d97233b6270a3b4bb69799a6e7f74b0, type: 3}
+  tornado: {fileID: 8300000, guid: 49bf35992fa94284c9a65376c195312e, type: 3}
+  buttonClick: {fileID: 8300000, guid: 3919845850f0ed44089673ab49eefc3e, type: 3}
+  abilityChoose: {fileID: 8300000, guid: 63ecaaa262c791448a7932dac57ffee7, type: 3}
+  levelUpSound: {fileID: 8300000, guid: 92e980cd48290c341a2190cb151e8114, type: 3}
+  startNewGame: {fileID: 8300000, guid: fccdcd23008513a4faed94aa7bb4c25b, type: 3}
+  bossDeath: {fileID: 8300000, guid: 6ac873475162bd2448fc45ac2aab88f9, type: 3}
+  enemyHurt: {fileID: 8300000, guid: 15f251ad77732474599888d4e3c3f33c, type: 3}
+  playerDie: {fileID: 8300000, guid: e3238aee77337d545a39ca9610c9b78a, type: 3}
+  playerTakeDamage: {fileID: 8300000, guid: ca7965f5b7115764fb7a1d8ee33fca6e, type: 3}

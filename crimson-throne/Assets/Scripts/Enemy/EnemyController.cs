@@ -16,6 +16,9 @@ public class EnemyController : MonoBehaviour
     protected Transform target;
     protected Animator animator;
     protected Rigidbody2D rb2d;
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor; 
+
     private System.Action<Vector2> spawnItemAction = null;
 
     private void Awake()
@@ -30,12 +33,23 @@ public class EnemyController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
-        target = PlayerController.instance.transform;
+        originalColor = spriteRenderer.color;
+        if (PlayerController.instance != null)
+        {
+            target = PlayerController.instance.transform;
+        }
     }
 
     public void SetSpawnItemAction(System.Action<Vector2> action)
     {
-        spawnItemAction = action;
+        if (action != null)
+        {
+            spawnItemAction = action;
+        }
+        else 
+        {
+            spawnItemAction = pos => ItemSpawner.instance?.SpawnExp(dropExp, pos);
+        }
     }
 
     private void Update()
@@ -64,10 +78,22 @@ public class EnemyController : MonoBehaviour
         if (isDefeated) return;
         animator.SetTrigger("Hit");
         health -= damageTaken;
+        StartCoroutine(FlashEffect());
         ApplyKnockback(knockbackForce);
         if (health <= 0)
         {
             Die();
+        }
+    }
+
+    private IEnumerator FlashEffect()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            spriteRenderer.color = Color.white;
+            yield return new WaitForSeconds(0.1f);
+            spriteRenderer.color = originalColor;
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -94,9 +120,7 @@ public class EnemyController : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
         isDefeated = true;
         spawnItemAction?.Invoke(transform.position);
-
-        // animator.SetTrigger("Dead");
-        GameManager.instance.UpdateKillsCount(1);      
+        GameManager.instance?.UpdateKillsCount(1);      
         if (deathEffect != null)
         {
             GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
