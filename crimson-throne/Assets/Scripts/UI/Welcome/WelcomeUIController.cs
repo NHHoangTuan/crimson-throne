@@ -14,7 +14,8 @@ public class WelcomeUIController : MonoBehaviour
     }
 
     public void GoToMainMenuScreen()
-    {
+    {   
+        AudioManager.instance.PlaySFX(AudioManager.instance.startNewGame);
         UIManager.instance.OpenMainMenuScreen();
     }
 }

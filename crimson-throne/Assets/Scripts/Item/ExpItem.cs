@@ -8,6 +8,7 @@ public class ExpItem : MonoBehaviour
     [SerializeField] private bool isAttracting = false;
     private Rigidbody2D rb2d;
     private Rigidbody2D characterRb2d;
+    private AudioSource audioSource;
 
     private void Start()
     {
@@ -39,6 +40,7 @@ public class ExpItem : MonoBehaviour
 
     private void Collect()
     {   
+        AudioManager.instance.PlaySFX(AudioManager.instance.expCollect);
         PlayerController.instance.AddExperience(expValue);
         Destroy(gameObject);
     }

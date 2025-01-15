@@ -37,6 +37,7 @@ public class PowerUpUIController : MonoBehaviour
 
     public bool Up(PowerUpInfo info)
     {
+        AudioManager.instance.PlaySFX(AudioManager.instance.buttonClick);
         int totalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
         if (totalCoins - info.cost < 0)
         {
@@ -53,6 +54,7 @@ public class PowerUpUIController : MonoBehaviour
 
     public void Reset()
     {
+        AudioManager.instance.PlaySFX(AudioManager.instance.buttonClick);
         if (activeOptions == null) return;
 
         int totalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
@@ -74,6 +76,7 @@ public class PowerUpUIController : MonoBehaviour
 
     public void Close()
     {
+        AudioManager.instance.PlaySFX(AudioManager.instance.buttonClick);
         UIManager.instance.powerUpPanel.SetActive(false);
         UIManager.instance.mainPanel.SetActive(true);
         Clear();

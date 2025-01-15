@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Thunder : MonoBehaviour
 {
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(AudioManager.instance.thunder);
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         EnemyController enemy = other.GetComponent<EnemyController>();

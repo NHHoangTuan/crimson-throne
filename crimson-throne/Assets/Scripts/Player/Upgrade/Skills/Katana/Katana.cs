@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class Katana : MonoBehaviour
 {
+    private AudioSource audioSource;
     [SerializeField] private float knockback = 0.5f;
     [SerializeField] private int pierce = 2;
 
     private void Start()
     {
         pierce = KatanaSpawner.instance.GetCurrentPierce();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(AudioManager.instance.katana);
     }
 
     void OnTriggerEnter2D(Collider2D other)

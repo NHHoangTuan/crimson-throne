@@ -45,6 +45,7 @@ public class SettingsUIController : MonoBehaviour {
     
     public void Close()
     {
+        AudioManager.instance.PlaySFX(AudioManager.instance.buttonClick);
         PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
         PlayerPrefs.SetFloat("SFXVolume", sfxSlider.value);
         PlayerPrefs.Save();

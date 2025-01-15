@@ -54,4 +54,5 @@ MonoBehaviour:
   - MainMenu
   - Map1
   - Map2
+  - Map3
   currentScreenIndex: 0

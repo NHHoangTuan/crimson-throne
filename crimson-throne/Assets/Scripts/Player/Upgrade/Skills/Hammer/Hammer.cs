@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class Hammer : MonoBehaviour
 {
+    private AudioSource audioSource;
     [SerializeField] private float knockback = 2f;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(AudioManager.instance.hammer);
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {

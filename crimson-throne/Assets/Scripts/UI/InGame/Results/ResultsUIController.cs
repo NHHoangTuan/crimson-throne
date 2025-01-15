@@ -23,6 +23,7 @@ public class ResultsUIController : MonoBehaviour
 
     public void SetUp(bool isVictory, string timePlayed, int killsCount, int coinsCount, int levelReached)
     {
+        AudioManager.instance.PlayMusic(AudioManager.instance.resultsBackground);
         Time.timeScale = 0f;
         UIManager.instance.resultsPanel.SetActive(true);
         titleText.text = isVictory ? "VICTORY" : "DEFEAT";
@@ -30,15 +31,16 @@ public class ResultsUIController : MonoBehaviour
         killsText.text = killsCount.ToString() + (isVictory ? "(x3)" : "");
         coinsText.text = coinsCount.ToString();
         levelText.text = levelReached.ToString();
-        if (isVictory) 
-        {
-            PlayerPrefs.SetInt("TotalCoins", coinsCount * (isVictory ? 3 : 1));
-            PlayerPrefs.Save();
-        }
+        int totalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
+        totalCoins += coinsCount * (isVictory ? 3 : 1);
+        PlayerPrefs.SetInt("TotalCoins", totalCoins);
+        PlayerPrefs.Save();
     }
 
     public void Close()
     {
+        AudioManager.instance.StopMusic();
+        AudioManager.instance.PlaySFX(AudioManager.instance.buttonClick);
         Time.timeScale = 1f;
         GameManager.instance.ReturnMainMenu();
     }

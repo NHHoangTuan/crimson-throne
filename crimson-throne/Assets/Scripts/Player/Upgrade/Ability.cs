@@ -2,10 +2,10 @@ using UnityEngine;
 
 public abstract class Ability : MonoBehaviour
 {
-    protected string abilityName;
     protected int maxLevel;
-    protected int currentLevel;
-    protected string description;
+    [SerializeField] protected string abilityName;
+    [SerializeField] protected string description;
+    [SerializeField] protected int currentLevel;
     [SerializeField] protected Sprite artwork;
 
     public string GetAbilityName()
