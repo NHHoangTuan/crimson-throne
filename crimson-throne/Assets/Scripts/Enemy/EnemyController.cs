@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] protected float damage = 1;
     [SerializeField] protected float dropExp = 1;
     [SerializeField] protected bool isDefeated = false;
+    [SerializeField] protected bool isFinalBoss = false;
     [Header("Effects")]
     [SerializeField] protected GameObject deathEffect;
     protected bool isKnockedBack;
@@ -18,6 +19,7 @@ public class EnemyController : MonoBehaviour
     protected Rigidbody2D rb2d;
     private SpriteRenderer spriteRenderer;
     private Color originalColor; 
+    private AudioSource audioSource;
 
     private System.Action<Vector2> spawnItemAction = null;
 
@@ -31,8 +33,10 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
         if (PlayerController.instance != null)
         {
@@ -78,10 +82,23 @@ public class EnemyController : MonoBehaviour
         if (isDefeated) return;
         animator.SetTrigger("Hit");
         health -= damageTaken;
+        audioSource.PlayOneShot(AudioManager.instance.enemyHurt);
         StartCoroutine(FlashEffect());
         ApplyKnockback(knockbackForce);
         if (health <= 0)
         {
+            if (isFinalBoss)
+            {
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                foreach (GameObject enemy in enemies)
+                {
+                    EnemyController enemyController = enemy.GetComponent<EnemyController>();
+                    if (enemyController != null && !enemyController.isDefeated)
+                    {
+                        enemyController.Die();
+                    }
+                }
+            }
             Die();
         }
     }
@@ -91,7 +108,7 @@ public class EnemyController : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             spriteRenderer.color = Color.white;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
             spriteRenderer.color = originalColor;
             yield return new WaitForSeconds(0.1f);
         }
@@ -99,6 +116,7 @@ public class EnemyController : MonoBehaviour
 
     private void ApplyKnockback(float knockbackForce)
     {
+        if (target == null) return;
         Vector2 knockbackDirection = (transform.position - PlayerController.instance.transform.position).normalized;
         StartCoroutine(HandleKnockback(knockbackDirection, knockbackForce));
     }
@@ -113,7 +131,7 @@ public class EnemyController : MonoBehaviour
         isKnockedBack = false;
     }
 
-    private void Die()
+    public void Die()
     {
         WaveManager.instance?.EnemyDied();
         rb2d.linearVelocity = Vector2.zero;
@@ -124,6 +142,8 @@ public class EnemyController : MonoBehaviour
         if (deathEffect != null)
         {
             GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
+            AudioSource effectAudioSource = effect.GetComponent<AudioSource>();
+            effectAudioSource.PlayOneShot(AudioManager.instance.enemyHurt);
             Destroy(effect, effect.GetComponent<ParticleSystem>().main.duration);
         }
         Destroy(gameObject);
@@ -135,5 +155,10 @@ public class EnemyController : MonoBehaviour
         {
             collision.gameObject.GetComponent<PlayerController>().ChangeHealth(-Mathf.FloorToInt(damage));
         }
+    }
+
+    public void SetFinalBoss()
+    {
+        isFinalBoss = true;
     }
 }

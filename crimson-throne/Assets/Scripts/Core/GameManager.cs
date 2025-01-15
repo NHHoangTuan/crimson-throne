@@ -50,13 +50,14 @@ public class GameManager : MonoBehaviour
     public void ReturnMainMenu()
     {
         currentScreenIndex = 0;
-        SceneManager.LoadScene(screens[currentScreenIndex]);
+        StartCoroutine(LoadSceneAsync(screens[currentScreenIndex]));
     }
 
     private IEnumerator LoadSceneAsync(string sceneName)
     {
         UIBackground.instance?.Show();
-        
+        AudioManager.instance?.MuteSFX(true);
+        AudioManager.instance?.SetMusicVolume(0f);
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
         if (operation != null)
@@ -73,6 +74,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        AudioManager.instance?.MuteSFX(false);
+        AudioManager.instance?.SetMusicVolume(1.0f);
         UIBackground.instance?.Hide();
     }
 

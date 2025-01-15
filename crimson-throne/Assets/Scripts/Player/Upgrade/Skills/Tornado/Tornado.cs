@@ -5,6 +5,13 @@ using UnityEngine;
 public class Tornado : MonoBehaviour
 {
     [SerializeField] private float knockback = 1.75f;
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(AudioManager.instance.tornado);
+    }
     
     void OnTriggerEnter2D(Collider2D other)
     {

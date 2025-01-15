@@ -143,6 +143,7 @@ public class PlayerController : MonoBehaviour
             if (isInvicible)
                 return;
             animator.SetTrigger("Hit");
+            audioSource.PlayOneShot(AudioManager.instance.playerTakeDamage);
             isInvicible = true;
             invicibleTimer = timeInvincible;
             amount = Mathf.Clamp(amount + armor + PlayerAttributeBuffs.instance.armorBonus, amount, 0);
@@ -242,7 +243,7 @@ public class PlayerController : MonoBehaviour
         isDefeated = true;
         rb2d.linearVelocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = false;
-
+        rb2d.simulated = false;
         animator.SetTrigger("Dead");     
         if (deathEffect != null)
         {
@@ -256,7 +257,14 @@ public class PlayerController : MonoBehaviour
     {
         AnimatorStateInfo animationInfo = animator.GetCurrentAnimatorStateInfo(0);
         float animationDuration = animationInfo.length;
+        audioSource.PlayOneShot(AudioManager.instance.playerDie);
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         yield return new WaitForSeconds(animationDuration);
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = new Color(0.8f, spriteRenderer.color.g, spriteRenderer.color.b);
+        }
+        yield return new WaitForSeconds(2f);
         GameManager.instance.EndGame(false);
     }
 }

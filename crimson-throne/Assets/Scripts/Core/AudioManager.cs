@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] public AudioClip gymPhonkBackground;
     [SerializeField] public AudioClip lofiOrchestraBackground;
     [SerializeField] public AudioClip vampireSoundtrackBackground;
+    [SerializeField] public AudioClip resultsBackground;
     [Space(3)]
     [Header("Items")]
     [SerializeField] public AudioClip coinCollect;
@@ -81,5 +82,14 @@ public class AudioManager : MonoBehaviour
     public void ResumeMusic()
     {
         musicSource.UnPause();
+    }
+    public void MuteSFX(bool mute)
+    {
+        AudioListener.volume = mute ? 0 : 1;
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        musicSource.volume = volume;
     }
 }

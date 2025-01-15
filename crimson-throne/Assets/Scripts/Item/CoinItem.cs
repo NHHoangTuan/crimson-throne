@@ -3,6 +3,7 @@ using UnityEngine;
 public class CoinItem : MonoBehaviour
 {
     [SerializeField] private int coinValue = 1;
+    private AudioSource audioSource;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,6 +15,7 @@ public class CoinItem : MonoBehaviour
 
     private void Collect()
     {
+        AudioManager.instance.PlaySFX(AudioManager.instance.coinCollect);
         GameManager.instance?.UpdateCoinsCount(coinValue);
         Destroy(gameObject);
     }

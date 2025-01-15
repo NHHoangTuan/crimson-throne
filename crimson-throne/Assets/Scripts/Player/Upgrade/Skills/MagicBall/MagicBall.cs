@@ -5,6 +5,13 @@ using UnityEngine;
 public class MagicBall : MonoBehaviour
 {
     [SerializeField] private float knockback = 1f;
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(AudioManager.instance.magicBall);
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {

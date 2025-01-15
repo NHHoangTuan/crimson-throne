@@ -72,6 +72,7 @@ public class LevelUpController : MonoBehaviour
             Close();
             return;
         }
+        AudioManager.instance.PlaySFX(AudioManager.instance.levelUpSound);
         PauseGame();
         UIManager.instance.levelUpPanel.SetActive(true);
         List<Ability> abilities = GetRandomAbilities();
@@ -90,6 +91,7 @@ public class LevelUpController : MonoBehaviour
             
             levelUpButton.onClick.AddListener(() =>
             {
+                AudioManager.instance.PlaySFX(AudioManager.instance.abilityChoose);
                 ClearCards();
                 ability.LevelUp();
                 ShowLevelUpUI(count - 1);

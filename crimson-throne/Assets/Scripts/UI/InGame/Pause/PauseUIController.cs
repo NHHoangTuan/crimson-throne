@@ -44,6 +44,7 @@ public class PauseUIController : MonoBehaviour
 
     public void Resume()
     {
+        AudioManager.instance.PlaySFX(AudioManager.instance.buttonClick);
         GameManager.instance.TogglePause(false);
         UIManager.instance.pausePanel.SetActive(false);
         Time.timeScale = 1f;
@@ -53,6 +54,7 @@ public class PauseUIController : MonoBehaviour
 
     private void Pause()
     {
+        AudioManager.instance.PlaySFX(AudioManager.instance.buttonClick);
         GameManager.instance.TogglePause(true);
         UIManager.instance.pausePanel.SetActive(true);
         Time.timeScale = 0f;
@@ -61,6 +63,7 @@ public class PauseUIController : MonoBehaviour
 
     public void QuitGame()
     {
+        AudioManager.instance.PlaySFX(AudioManager.instance.buttonClick);
         UIManager.instance.pausePanel.SetActive(false);
         SaveSettings();
         GameManager.instance.EndGame(false);
