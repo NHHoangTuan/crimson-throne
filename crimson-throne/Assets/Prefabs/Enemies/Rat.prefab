@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4337386452129945556}
   - component: {fileID: 6307877603861391655}
   - component: {fileID: 3433327604971299283}
-  - component: {fileID: 2629047679246008470}
+  - component: {fileID: 1553229928980997698}
   m_Layer: 0
   m_Name: Rat
   m_TagString: Untagged
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 50
   m_Sprite: {fileID: -3121812679155337768, guid: 7a39cb78bc84020498f2574b23b59007, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -186,7 +186,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.1158818, y: 0.5407486}
   m_EdgeRadius: 0
---- !u!114 &2629047679246008470
+--- !u!114 &1553229928980997698
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,8 +195,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4588662867825683838}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6f66b276e4423148a11fc98d7eed6fe, type: 3}
+  m_Script: {fileID: 11500000, guid: f47b36b44b50ff84b99ad0f9d5e3a83e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  target: {fileID: 0}
+  health: 0
+  speed: 0
+  damage: 0
+  dropExp: 0
+  isDefeated: 0
+  deathEffect: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7146422659159646572}
   - component: {fileID: 9124778702709123511}
   - component: {fileID: 553152158366706029}
-  - component: {fileID: 7002512896380697251}
+  - component: {fileID: 3031554833689520063}
   m_Layer: 0
   m_Name: Boss3
   m_TagString: Untagged
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 50
   m_Sprite: {fileID: 4723107735738678597, guid: 413287444c289db41ac425e35396f499, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -186,7 +186,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.130835, y: 3.4375}
   m_EdgeRadius: 0
---- !u!114 &7002512896380697251
+--- !u!114 &3031554833689520063
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,8 +195,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3513645904942325368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6f66b276e4423148a11fc98d7eed6fe, type: 3}
+  m_Script: {fileID: 11500000, guid: f47b36b44b50ff84b99ad0f9d5e3a83e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  target: {fileID: 0}
+  health: 0
+  speed: 0
+  damage: 0
+  dropExp: 0
+  isDefeated: 0
+  deathEffect: {fileID: 0}

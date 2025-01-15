@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3303752028630978717}
   - component: {fileID: 7113860786101987398}
   - component: {fileID: 5533365336466712802}
-  - component: {fileID: 6969232358881362521}
+  - component: {fileID: -6117180159711023242}
   m_Layer: 7
   m_Name: Goblin
   m_TagString: Untagged
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 50
   m_Sprite: {fileID: 4723107735738678597, guid: 676fbee9494c4014bb97bb729b196f4f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -186,7 +186,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6969232358881362521
+--- !u!114 &-6117180159711023242
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,8 +195,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5122510396592221041}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 435de6f0964bacb44a68d1b141a2d5d3, type: 3}
+  m_Script: {fileID: 11500000, guid: f47b36b44b50ff84b99ad0f9d5e3a83e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  target: {fileID: 0}
+  health: 0
+  speed: 0
+  damage: 0
+  dropExp: 0
+  isDefeated: 0
+  deathEffect: {fileID: 0}
