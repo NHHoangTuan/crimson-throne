@@ -7,7 +7,7 @@ public class WaveManager : MonoBehaviour
     public static WaveManager instance { get; private set; }
     [SerializeField] private Wave[] waves;
     [SerializeField] private Transform[] spawnPositions;
-    [SerializeField] private int maxEnemiesAlive = 150;
+    [SerializeField] public int maxEnemiesAlive = 150;
     private int enemiesAlive = 0;
     private Transform player;
 
