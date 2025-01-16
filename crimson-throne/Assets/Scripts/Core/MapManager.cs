@@ -35,6 +35,7 @@ public class MapManager : MonoBehaviour
     {
         UIManager.instance?.OpenWelcomeScreen();
         AudioManager.instance?.PlayMusic(AudioManager.instance?.lofiOrchestraBackground);
+        AudioManager.instance?.SetMusicVolume(0f);
     }
 
     private void SetupInGameScreen()

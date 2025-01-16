@@ -89,6 +89,7 @@ public class EnemyController : MonoBehaviour
         {
             if (isFinalBoss)
             {
+                WaveManager.instance.maxEnemiesAlive = 0;
                 GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
                 foreach (GameObject enemy in enemies)
                 {

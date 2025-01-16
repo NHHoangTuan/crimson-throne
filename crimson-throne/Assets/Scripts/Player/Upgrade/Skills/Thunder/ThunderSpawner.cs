@@ -83,8 +83,11 @@ public class ThunderSpawner : Ability
                 thunderCounts = count;
                 for (int i = 0; i < count; i++)
                 {
-                    Vector2 targetPosition = enemiesInRange[i].transform.position;
-                    SpawnThunder(targetPosition);
+                    if (enemiesInRange[i] != null)
+                    {
+                        Vector2 targetPosition = enemiesInRange[i].transform.position;
+                        SpawnThunder(targetPosition);
+                    }
                     yield return new WaitForSeconds(0.02f);
                 }
             }
