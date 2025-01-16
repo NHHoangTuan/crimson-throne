@@ -16,8 +16,9 @@ public class MainUIController : MonoBehaviour
 
     public void StartNewGame()
     {
-        AudioManager.instance.PlaySFX(AudioManager.instance.startNewGame);
-        GameManager.instance?.NextLevel();
+        AudioManager.instance.PlaySFX(AudioManager.instance.buttonClick);
+        UIManager.instance.mainPanel.SetActive(false);
+        UIManager.instance.playerPickPanel.SetActive(true);
     }
 
     public void OpenPowerUp()

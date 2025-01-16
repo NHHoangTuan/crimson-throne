@@ -55,4 +55,17 @@ public class SkillsManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void SetDefaultSkill(string skillName)
+    {
+        foreach (Ability skill in inactiveSkills)
+        {
+            if (string.Equals(skill.GetAbilityName(), skillName, StringComparison.OrdinalIgnoreCase))
+            {
+                skill.LevelUp();
+                return;
+            }
+        }
+        inactiveSkills[0].LevelUp();
+    }
 }
