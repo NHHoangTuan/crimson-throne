@@ -402,6 +402,7 @@ MonoBehaviour:
   maxLevel: 31
   currentLevel: 0
   currentExperience: 0
+  defaultSkill: Katana Skill
 --- !u!82 &8110393846976949687
 AudioSource:
   m_ObjectHideFlags: 0

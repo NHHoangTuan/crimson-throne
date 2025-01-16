@@ -17,6 +17,7 @@ public class WelcomeUIController : MonoBehaviour
     {   
         AudioManager.instance.PlaySFX(AudioManager.instance.startNewGame);
         AudioManager.instance?.SetMusicVolume(1f);
+        AudioManager.instance?.PlayMusic(AudioManager.instance.lofiOrchestraBackground);
         UIManager.instance.OpenMainMenuScreen();
     }
 }

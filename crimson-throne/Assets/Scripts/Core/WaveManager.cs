@@ -34,7 +34,7 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator GameFlow()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
         foreach (Wave wave in waves)
         {
             yield return StartCoroutine(StartWave(wave));
@@ -57,7 +57,6 @@ public class WaveManager : MonoBehaviour
                 for (int i = 0; i < numSpawns; i++)
                 {
                     if (enemiesAlive >= maxEnemiesAlive) yield return null;
-
                     SpawnMultipleEnemies(wave.enemyPrefabs, enemiesPerSpawn[i]);
                     yield return new WaitForSeconds(spawnInterval);
                 }
@@ -106,6 +105,7 @@ public class WaveManager : MonoBehaviour
         if (prefabs.Length == 0) return;
         for (int i = 0; i < count; i++)
         {
+            if (enemiesAlive >= maxEnemiesAlive) return;
             int randomIndex = Random.Range(0, prefabs.Length);
             SpawnEnemy(prefabs[randomIndex], null);
         }
@@ -120,26 +120,33 @@ public class WaveManager : MonoBehaviour
     {
         int[] distribution = new int[numSpawns];
         float[] weights = new float[numSpawns];
+
+        int mid = numSpawns / 2;
         for (int i = 0; i < numSpawns; i++)
         {
-            weights[i] = 1 + Mathf.Abs(numSpawns / 2 - i);
+            int distanceToMid = Mathf.Abs(mid - i);
+            weights[i] = 1f / (1 + distanceToMid);
         }
+
         float totalWeight = 0f;
         for (int i = 0; i < numSpawns; i++)
         {
             totalWeight += weights[i];
         }
+
         for (int i = 0; i < numSpawns; i++)
         {
             distribution[i] = Mathf.RoundToInt(totalEnemies * (weights[i] / totalWeight));
         }
+
         int currentTotal = 0;
         foreach (int count in distribution)
         {
             currentTotal += count;
         }
         int difference = totalEnemies - currentTotal;
-        distribution[numSpawns - 1] += difference; 
+        distribution[numSpawns - 1] += difference;
+
         return distribution;
     }
 }

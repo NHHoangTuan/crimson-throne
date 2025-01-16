@@ -39,6 +39,8 @@ public class AudioManager : MonoBehaviour
     [Space(3)]
     [Header("Enemy")]
     [SerializeField] public AudioClip bossDeath;
+    [SerializeField] public AudioClip bossDash;
+    [SerializeField] public AudioClip bossFire;
     [SerializeField] public AudioClip enemyHurt;
     [Space(3)]
     [Header("Player")]
