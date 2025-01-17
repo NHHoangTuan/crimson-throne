@@ -3,8 +3,8 @@ using Unity.Cinemachine;
 
 public class MapManager : MonoBehaviour
 {
+    #region Singleton
     public static MapManager instance { private set; get; }
-    [SerializeField] private GameObject spawnPoint;
 
     private void Awake()
     {
@@ -13,32 +13,50 @@ public class MapManager : MonoBehaviour
             instance = this;
         }
     }
+    #endregion
 
+    #region Variables
+    [SerializeField] private GameObject spawnPoint;
+    #endregion
+
+    #region Initialization
     private void Start()
     {
-        switch (GameManager.instance?.currentScreenIndex)
+        int currentScreenIndex = GameManager.instance?.currentScreenIndex ?? -1;
+        switch (currentScreenIndex)
         {
             case 0:
                 SetupWelcomeScreen();
                 break;
             case 1:
-                SetupInGameScreen();
+                SetupFirstGamePlay();
+                AudioManager.instance?.PlayMusic(AudioManager.instance.gameMusicLoopBackground);
                 break;
             case 2:
+                SetupGamePlay();
+                AudioManager.instance?.PlayMusic(AudioManager.instance.vampireSoundtrackBackground);
+                break;
             case 3:
-                SetupGameScreen(GameManager.instance.currentScreenIndex);
+                SetupGamePlay();
+                AudioManager.instance?.PlayMusic(AudioManager.instance.chillMusicBackground);
+                WaveManager.instance.canStart = false;
+                break;
+            default:
+                Debug.LogWarning($"Unhandled screen index: {currentScreenIndex}");
                 break;
         }
     }
+    #endregion
 
+    #region Screen Setup Methods
     private void SetupWelcomeScreen()
     {
         UIManager.instance?.OpenWelcomeScreen();
-        AudioManager.instance?.PlayMusic(AudioManager.instance?.lofiOrchestraBackground);
+        AudioManager.instance?.PlayMusic(AudioManager.instance.lofiOrchestraBackground);
         AudioManager.instance?.SetMusicVolume(0f);
     }
 
-    private void SetupInGameScreen()
+    private void SetupFirstGamePlay()
     {
         // UI
         UIManager.instance?.OpenInGameScreen();
@@ -48,28 +66,41 @@ public class MapManager : MonoBehaviour
         UITimer.instance?.SetTimer(0);
         UIExpBar.instance?.SetValue(0);
         UIExpBar.instance?.SetLevelText(0);
-        // Audio
-        AudioManager.instance?.PlayMusic(AudioManager.instance?.gameMusicLoopBackground);
         // Set Up Game Stats
         GameManager.instance?.StartNewGame();
         // Set Up Player
-        GameObject player = Instantiate(GameManager.instance?.player, spawnPoint.transform.position, Quaternion.identity);
+        if (GameManager.instance?.player == null || spawnPoint == null)
+        {
+            Debug.LogWarning("Player or spawn point is not properly configured.");
+            return;
+        }
+        GameObject player = Instantiate(GameManager.instance.player, spawnPoint.transform.position, Quaternion.identity);
         SetupCamera(player);
-        PlayerController.instance?.gameObject.SetActive(true);
-        SkillsManager.instance?.SetDefaultSkill(PlayerController.instance?.defaultSkill);
-        // Set Up Wave
-        WaveManager.instance?.StartGame();
-        // Spawn Item (Health And Coins)
-        SpawnItemManager.instance?.StartSpawnItems();
+        if (PlayerController.instance == null || SkillsManager.instance == null) 
+        {
+            Debug.LogWarning("Cannot setup game due to lack of Player and Skill Managers!");
+            return;
+        }
+        PlayerController.instance.gameObject.SetActive(true);
+        SkillsManager.instance.SetDefaultSkill(PlayerController.instance.defaultSkill);
+        SetUpSpawnLogic();
     }
 
-    private void SetupGameScreen(int screenIndex)
+    private void SetupGamePlay()
     {
-        // Audio
-        AudioManager.instance?.PlayMusic(screenIndex == 2 ? AudioManager.instance.chillMusicBackground : AudioManager.instance.vampireSoundtrackBackground);
+        if (PlayerController.instance == null || spawnPoint == null)
+        {
+            Debug.LogWarning("Player or spawn point is not properly configured.");
+            return;
+        }
         // Set Up Player
         PlayerController.instance.transform.position = spawnPoint.transform.position;
-        SetupCamera(PlayerController.instance?.gameObject);
+        SetupCamera(PlayerController.instance.gameObject);
+        SetUpSpawnLogic();
+    }
+
+    private void SetUpSpawnLogic()
+    {
         // Set Up Wave
         WaveManager.instance?.StartGame();
         // Spawn Item (Health And Coins)
@@ -78,14 +109,26 @@ public class MapManager : MonoBehaviour
 
     private void SetupCamera(GameObject player)
     {
-        GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-        if (mainCamera != null)
+        if (player == null)
         {
-            CinemachineCamera cinemachineCamera = mainCamera.GetComponent<CinemachineCamera>();
-            if (cinemachineCamera != null && player != null)
-            {
-                cinemachineCamera.Follow = player.transform;
-            }
+            Debug.LogWarning("Player is null. Cannot set up the camera.");
+            return;
+        }
+        GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        if (mainCamera == null)
+        {
+            Debug.LogWarning("Main camera not found.");
+            return;
+        }
+        CinemachineCamera cinemachineCamera = mainCamera.GetComponent<CinemachineCamera>();
+        if (cinemachineCamera != null && player != null)
+        {
+            cinemachineCamera.Follow = player.transform;
+        }
+        else
+        {
+            Debug.LogWarning("CinemachineCamera component not found on MainCamera.");
         }
     }
+    #endregion
 }

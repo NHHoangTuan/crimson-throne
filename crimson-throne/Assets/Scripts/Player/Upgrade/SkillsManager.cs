@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class SkillsManager : MonoBehaviour
 {
-
-    private const int MAX_SKILLS = 4;
+    #region Singleton
     public static SkillsManager instance { get; private set; }
-    public List<Ability> activeSkills;
-    public List<Ability> inactiveSkills;
-    public List<Ability> maxSkills;
     
     void Awake() 
     {
@@ -23,7 +19,16 @@ public class SkillsManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    #endregion
 
+    #region Variables
+    private const int MAX_SKILLS = 4;
+    public List<Ability> activeSkills;
+    public List<Ability> inactiveSkills;
+    public List<Ability> maxSkills;
+    #endregion
+
+    #region Controls
     public int GetUpgradableCount()
     {
         return MAX_SKILLS - maxSkills.Count;
@@ -68,4 +73,5 @@ public class SkillsManager : MonoBehaviour
         }
         inactiveSkills[0].LevelUp();
     }
+    #endregion
 }

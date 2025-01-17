@@ -3,6 +3,19 @@ using UnityEngine.UI;
 
 public class PlayerAttributeBuffs : MonoBehaviour
 {
+    #region Singleton
+    public static PlayerAttributeBuffs instance { get; private set; }
+
+    void Awake() 
+    {
+        if (instance == null) 
+        {
+            instance = this;
+        }
+    }
+    #endregion
+
+    #region Variables
     // BUFF
     public int maxHealthBonus = 0;
     public int armorBonus = 0;
@@ -15,14 +28,5 @@ public class PlayerAttributeBuffs : MonoBehaviour
     public float cooldownRatio = 1;
     public float velocityRatio = 1;
     public float durationRatio = 1;
-    
-    public static PlayerAttributeBuffs instance { get; private set; }
-
-    void Awake() 
-    {
-        if (instance == null) 
-        {
-            instance = this;
-        }
-    }
+    #endregion
 }

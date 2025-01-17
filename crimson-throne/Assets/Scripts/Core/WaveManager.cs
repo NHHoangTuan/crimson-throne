@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
+    #region Singleton
     public static WaveManager instance { get; private set; }
-    [SerializeField] private Wave[] waves;
-    [SerializeField] private Transform[] spawnPositions;
-    [SerializeField] public int maxEnemiesAlive = 150;
-    private int enemiesAlive = 0;
-    private Transform player;
 
     private void Awake()
     {
@@ -18,23 +14,36 @@ public class WaveManager : MonoBehaviour
             instance = this;
         }
     }
+    #endregion
     
+    #region Variables
+    [SerializeField] private Wave[] waves;
+    [SerializeField] private Transform[] spawnPositions;
+    [SerializeField] public int maxEnemiesAlive = 150;
+    [SerializeField] public bool canStart = true;
+    private int enemiesAlive = 0;
+    #endregion
+
+    #region Initialization
     public void StartGame()
     {
-        player = PlayerController.instance?.transform;
-        if (player != null)
+        if (PlayerController.instance != null)
         {
             StartCoroutine(GameFlow());
         }
         else
         {
-            Debug.LogError("Player not found! GameFlow will not start.");
+            Debug.LogWarning("Player not found! GameFlow will not start.");
         }
     }
 
     private IEnumerator GameFlow()
     {
         yield return new WaitForSeconds(1f);
+        while (!canStart) 
+        {
+            yield return null;
+        }
         foreach (Wave wave in waves)
         {
             yield return StartCoroutine(StartWave(wave));
@@ -42,7 +51,9 @@ public class WaveManager : MonoBehaviour
         }
         Debug.Log("All waves have been spawned!");
     }
+    #endregion
 
+    #region Spawn Controls
     private IEnumerator StartWave(Wave wave)
     {
         Debug.Log($"Starting Wave: {wave.waveName}");
@@ -71,17 +82,7 @@ public class WaveManager : MonoBehaviour
             case WaveType.FINAL_BOSS:
                 if (wave.enemyPrefabs.Length > 0)
                 {
-                    SpawnEnemy(wave.enemyPrefabs[0], pos => 
-                    {
-                        if (GameManager.instance.IsFinal())
-                        {
-                            ItemSpawner.instance?.SpawnKey(pos);
-                        }
-                        else
-                        {
-                            ItemSpawner.instance?.SpawnGate(pos);
-                        }
-                    });
+                    SpawnEnemy(wave.enemyPrefabs[0], pos => ItemSpawner.instance?.SpawnGate(pos));
                 }
                 yield return new WaitForSeconds(wave.duration);
                 break;
@@ -93,10 +94,7 @@ public class WaveManager : MonoBehaviour
         Vector2 spawnPos = spawnPositions[Random.Range(0, spawnPositions.Length)].position;
         GameObject enemy = Instantiate(prefab, spawnPos, Quaternion.identity);
         EnemyController enemyController = enemy.GetComponent<EnemyController>();
-        if (enemyController != null)
-        {
-            enemyController.SetSpawnItemAction(onDie);
-        }
+        enemyController?.SetSpawnItemAction(onDie);
         enemiesAlive++;
     }
 
@@ -113,32 +111,28 @@ public class WaveManager : MonoBehaviour
 
     public void EnemyDied()
     {
-        enemiesAlive--;
+        enemiesAlive = Mathf.Max(0, enemiesAlive - 1);
     }
 
     private int[] DistributeEnemies(int totalEnemies, int numSpawns)
     {
         int[] distribution = new int[numSpawns];
         float[] weights = new float[numSpawns];
-
         int mid = numSpawns / 2;
         for (int i = 0; i < numSpawns; i++)
         {
             int distanceToMid = Mathf.Abs(mid - i);
             weights[i] = 1f / (1 + distanceToMid);
         }
-
         float totalWeight = 0f;
         for (int i = 0; i < numSpawns; i++)
         {
             totalWeight += weights[i];
         }
-
         for (int i = 0; i < numSpawns; i++)
         {
             distribution[i] = Mathf.RoundToInt(totalEnemies * (weights[i] / totalWeight));
         }
-
         int currentTotal = 0;
         foreach (int count in distribution)
         {
@@ -146,7 +140,7 @@ public class WaveManager : MonoBehaviour
         }
         int difference = totalEnemies - currentTotal;
         distribution[numSpawns - 1] += difference;
-
         return distribution;
     }
+    #endregion
 }

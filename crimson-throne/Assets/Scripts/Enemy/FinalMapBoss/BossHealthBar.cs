@@ -3,9 +3,8 @@ using UnityEngine.UI;
 
 public class BossHealthBar : MonoBehaviour
 {
+    #region Singleton
     public static BossHealthBar instance { get; private set; }
-    [SerializeField] private Image mask;
-    private float originalSize;
 
     void Awake() 
     {
@@ -15,9 +14,17 @@ public class BossHealthBar : MonoBehaviour
             originalSize = mask.rectTransform.rect.width;  
         }  
     }
+    #endregion
 
+    #region Variables
+    [SerializeField] private Image mask;
+    private float originalSize;
+    #endregion
+
+    #region Controls
     public void SetValue(float value)
     {
         mask.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalSize * value);
     }
+    #endregion
 }

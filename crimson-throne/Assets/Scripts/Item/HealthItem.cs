@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class HealthItem : MonoBehaviour
 {
+    #region Variables
     [SerializeField] private int healthValue = 20;
-    private AudioSource audioSource;
+    #endregion
 
+    #region Controls
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerController playerController = collision.GetComponent<PlayerController>();
@@ -25,4 +27,5 @@ public class HealthItem : MonoBehaviour
     {
         healthValue = value;
     }
+    #endregion
 }

@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class Cage : MonoBehaviour
 {
+    #region Variables
     private bool isKeyDetected = false; 
     private float fadeDuration = 3f;
     private SpriteRenderer spriteRenderer;
+    #endregion
 
+    #region Controls
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -46,4 +49,5 @@ public class Cage : MonoBehaviour
         yield return new WaitForSeconds(2f);
         GameManager.instance?.EndGame(true);
     }
+    #endregion
 }

@@ -2,12 +2,27 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    #region Singleton
     public static AudioManager instance { get; private set; }
 
-    [Header("------------ Audio Source ------------")]
-    [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioSource SFXSource;
+    private void Awake()
+    {
+        if (instance == null) 
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else 
+        {
+            Destroy(gameObject);
+        }
+    }
+    #endregion
 
+    #region Variables
+    [Header("------------ Audio Settings ------------")]
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource sfxSource;
     [Header("------------ Audio Clip ------------")]
     [Header("Background")]
     [SerializeField] public AudioClip chillMusicBackground;
@@ -46,29 +61,18 @@ public class AudioManager : MonoBehaviour
     [Header("Player")]
     [SerializeField] public AudioClip playerDie;
     [SerializeField] public AudioClip playerTakeDamage;
+    #endregion
 
-    private void Awake()
-    {
-        if (instance == null) 
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else 
-        {
-            Destroy(gameObject);
-        }
-    }
-
+    #region Music Controls
     public void PlayMusic(AudioClip clip)
     {
+        if (clip == null)
+        {
+            Debug.LogWarning("Music clip not found!");
+            return;
+        }
         musicSource.clip = clip;
         musicSource.Play();
-    }
-
-    public void PlaySFX(AudioClip clip)
-    {
-        SFXSource.PlayOneShot(clip);
     }
 
     public void StopMusic()
@@ -85,13 +89,27 @@ public class AudioManager : MonoBehaviour
     {
         musicSource.UnPause();
     }
-    public void MuteSFX(bool mute)
-    {
-        AudioListener.volume = mute ? 0 : 1;
-    }
 
     public void SetMusicVolume(float volume)
     {
         musicSource.volume = volume;
     }
+    #endregion
+
+    #region SFX Controls
+    public void PlaySFX(AudioClip clip)
+    {
+        if (clip == null)
+        {
+            Debug.LogWarning("SFX clip not found!");
+            return;
+        }
+        sfxSource.PlayOneShot(clip);
+    }
+    
+    public void MuteSFX(bool mute)
+    {
+        AudioListener.volume = mute ? 0 : 1;
+    }
+    #endregion
 }

@@ -4,10 +4,13 @@ using System.Collections;
 
 public class GateItem : MonoBehaviour 
 {
+    #region Variables
     private Coroutine countdownCoroutine;
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
+    #endregion
 
+    #region Controls
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -16,7 +19,7 @@ public class GateItem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             if (countdownCoroutine == null)
             {
@@ -38,6 +41,7 @@ public class GateItem : MonoBehaviour
             yield return null;
         }
 
-        if (!GameManager.instance.IsFinal()) GameManager.instance.NextLevel();
+        if (!GameManager.instance.IsFinalScreen()) GameManager.instance?.NextLevel();
     }
+    #endregion
 }

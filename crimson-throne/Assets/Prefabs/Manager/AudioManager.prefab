@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 5414656506949559471}
-  SFXSource: {fileID: 2118411325370058446}
+  sfxSource: {fileID: 2118411325370058446}
   chillMusicBackground: {fileID: 8300000, guid: d2737970391c5104fb20835e39fc7b48, type: 3}
   daVinciBackground: {fileID: 8300000, guid: 69670c6444997a941bd6a5c433d3eebd, type: 3}
   gameMusicLoopBackground: {fileID: 8300000, guid: d2b7b47d71de88e4e9134c5ffcf60d27, type: 3}
@@ -327,7 +327,7 @@ MonoBehaviour:
   levelUpSound: {fileID: 8300000, guid: 92e980cd48290c341a2190cb151e8114, type: 3}
   startNewGame: {fileID: 8300000, guid: fccdcd23008513a4faed94aa7bb4c25b, type: 3}
   bossDeath: {fileID: 8300000, guid: 6ac873475162bd2448fc45ac2aab88f9, type: 3}
-  bossDash: {fileID: 8300000, guid: 322e7789a9a66c04599b512f6e3bc462, type: 3}
+  bossDash: {fileID: 8300000, guid: 849ad88a48ace04428b3978ce3601479, type: 3}
   bossFire: {fileID: 8300000, guid: 94a923fa8579d114fa78be84b2ff6ae1, type: 3}
   enemyHurt: {fileID: 8300000, guid: 15f251ad77732474599888d4e3c3f33c, type: 3}
   playerDie: {fileID: 8300000, guid: e3238aee77337d545a39ca9610c9b78a, type: 3}
