@@ -3,13 +3,15 @@ using UnityEngine;
 
 public class ExpItem : MonoBehaviour
 {
+    #region Variables
     [SerializeField] private float expValue = 2f;
     [SerializeField] private float attractSpeed = 5f;
     [SerializeField] private bool isAttracting = false;
     private Rigidbody2D rb2d;
     private Rigidbody2D characterRb2d;
-    private AudioSource audioSource;
+    #endregion
 
+    #region Controls
     private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -40,8 +42,8 @@ public class ExpItem : MonoBehaviour
 
     private void Collect()
     {   
-        AudioManager.instance.PlaySFX(AudioManager.instance.expCollect);
-        PlayerController.instance.AddExperience(expValue);
+        AudioManager.instance?.PlaySFX(AudioManager.instance.expCollect);
+        PlayerController.instance?.AddExperience(expValue);
         Destroy(gameObject);
     }
 
@@ -59,4 +61,5 @@ public class ExpItem : MonoBehaviour
     {
         expValue = value;
     }
+    #endregion
 }

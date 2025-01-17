@@ -4,13 +4,14 @@ using UnityEngine.UIElements;
 
 public class EnemyController : MonoBehaviour
 {
+    #region Variables
     [Header("Enemy Attributes")]
     [SerializeField] protected float health = 1;
     [SerializeField] protected float speed = 1;
     [SerializeField] protected float damage = 1;
     [SerializeField] protected float dropExp = 1;
     [SerializeField] protected bool isDefeated = false;
-    [SerializeField] protected bool isFinalBoss = false;
+    [SerializeField] protected bool killAll = false;
     [Header("Effects")]
     [SerializeField] protected GameObject deathEffect;
     protected bool isKnockedBack;
@@ -20,9 +21,11 @@ public class EnemyController : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
     protected Color originalColor; 
     protected AudioSource audioSource;
-
+    // DEATH HANDLE
     protected System.Action<Vector2> spawnItemAction = null;
+    #endregion
 
+    #region Initialization
     private void Awake()
     {
         if (spawnItemAction == null)
@@ -38,24 +41,16 @@ public class EnemyController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
-        if (PlayerController.instance != null)
-        {
-            target = PlayerController.instance.transform;
-        }
+        target = PlayerController.instance?.transform;
     }
 
     public void SetSpawnItemAction(System.Action<Vector2> action)
     {
-        if (action != null)
-        {
-            spawnItemAction = action;
-        }
-        else 
-        {
-            spawnItemAction = pos => ItemSpawner.instance?.SpawnExp(dropExp, pos);
-        }
+        spawnItemAction = action ?? (pos => ItemSpawner.instance?.SpawnExp(dropExp, pos));
     }
+    #endregion
 
+    #region Moving Controls
     protected virtual void Update()
     {
         if (isDefeated || target == null || isKnockedBack) return;
@@ -66,41 +61,29 @@ public class EnemyController : MonoBehaviour
     {
         Vector2 direction = (target.position - transform.position).normalized;
         rb2d.linearVelocity = direction * speed;
-        if (direction.magnitude > 0)
-        {
-            animator.SetFloat("moveX", direction.x);
-            animator.SetBool("isMoving", true);
-        }
-        else
-        {
-            animator.SetBool("isMoving", false);
-        }
+        animator.SetBool("isMoving", direction.magnitude > 0);
+        animator.SetFloat("moveX", direction.x);
     }
+    #endregion
 
+    #region Take Damage Controls
     public virtual void TakeDamage(float damageTaken, float knockbackForce)
     {
         if (isDefeated) return;
-        animator.SetTrigger("Hit");
         health -= damageTaken;
         audioSource.PlayOneShot(AudioManager.instance.enemyHurt);
         StartCoroutine(FlashEffect());
-        ApplyKnockback(knockbackForce);
         if (health <= 0)
         {
-            if (isFinalBoss)
+            if (killAll)
             {
-                WaveManager.instance.maxEnemiesAlive = 0;
-                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-                foreach (GameObject enemy in enemies)
-                {
-                    EnemyController enemyController = enemy.GetComponent<EnemyController>();
-                    if (enemyController != null && !enemyController.isDefeated)
-                    {
-                        enemyController.Die();
-                    }
-                }
+                KillAllEnemies();
             }
             Die();
+        }
+        else
+        {
+            ApplyKnockback(knockbackForce);
         }
     }
 
@@ -118,6 +101,7 @@ public class EnemyController : MonoBehaviour
     private void ApplyKnockback(float knockbackForce)
     {
         if (target == null) return;
+
         Vector2 knockbackDirection = (transform.position - PlayerController.instance.transform.position).normalized;
         StartCoroutine(HandleKnockback(knockbackDirection, knockbackForce));
     }
@@ -132,12 +116,27 @@ public class EnemyController : MonoBehaviour
         isKnockedBack = false;
     }
 
+    private void KillAllEnemies()
+    {
+        WaveManager.instance.maxEnemiesAlive = 0;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            EnemyController enemyController = enemy.GetComponent<EnemyController>();
+            if (enemyController != null && !enemyController.isDefeated)
+            {
+                enemyController.Die();
+            }
+        }
+    }
+
     public void Die()
     {
         WaveManager.instance?.EnemyDied();
         rb2d.linearVelocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = false;
         isDefeated = true;
+
         spawnItemAction?.Invoke(transform.position);
         GameManager.instance?.UpdateKillsCount(1);      
         if (deathEffect != null)
@@ -149,7 +148,9 @@ public class EnemyController : MonoBehaviour
         }
         Destroy(gameObject);
     }
+    #endregion
 
+    #region Attack Controls
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -157,9 +158,5 @@ public class EnemyController : MonoBehaviour
             collision.gameObject.GetComponent<PlayerController>().ChangeHealth(-Mathf.FloorToInt(damage));
         }
     }
-
-    public void SetFinalBoss()
-    {
-        isFinalBoss = true;
-    }
+    #endregion
 }

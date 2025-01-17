@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class BuffsManager : MonoBehaviour
 {
-
-    private const int MAX_BUFFS = 4;
+    #region Singleton
     public static BuffsManager instance { get; private set; }    
-    public List<Ability> activeBuffs;
-    public List<Ability> inactiveBuffs;
-    public List<Ability> maxBuffs;
-
+    
     void Awake() 
     {
         if (instance == null)
@@ -23,7 +19,16 @@ public class BuffsManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    #endregion
 
+    #region Variables
+    private const int MAX_BUFFS = 4;
+    public List<Ability> activeBuffs;
+    public List<Ability> inactiveBuffs;
+    public List<Ability> maxBuffs;
+    #endregion
+    
+    #region Controls
     public int GetUpgradableCount()
     {
         return MAX_BUFFS - maxBuffs.Count;
@@ -55,4 +60,5 @@ public class BuffsManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    #endregion
 }

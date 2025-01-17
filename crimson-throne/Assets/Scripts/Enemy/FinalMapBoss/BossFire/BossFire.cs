@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class BossFire : MonoBehaviour
 {
+    #region Variables
     private AudioSource audioSource;
+    #endregion
 
+    #region Controls
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -21,4 +24,5 @@ public class BossFire : MonoBehaviour
             player.ChangeHealth(-Mathf.FloorToInt(BossFireSpawner.instance.GetCurrentDamage()));
         }
     }
+    #endregion
 }

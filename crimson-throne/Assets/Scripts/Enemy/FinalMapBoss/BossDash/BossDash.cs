@@ -4,10 +4,8 @@ using UnityEngine.UI;
 
 public class BossDash : MonoBehaviour
 {
+    #region Singleton
     public static BossDash instance { get; private set; }
-    private Rigidbody2D rb2d;
-    [SerializeField] private float cooldown = 7.5f;
-    [SerializeField] private float force = 5f;
 
     void Awake()
     {
@@ -16,23 +14,38 @@ public class BossDash : MonoBehaviour
             instance = this;
         }
     }
+    #endregion
 
+    #region Variables
+    [SerializeField] private float cooldown = 7.5f;
+    [SerializeField] private float force = 5f;
+    private Rigidbody2D rb2d;
+    private AudioClip dashSound;
+    private AudioSource audioSource;
+    #endregion
+
+    #region Set Up
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+        dashSound = AudioManager.instance.bossDash;
     }
 
     public void StartAbility()
     {
         StartCoroutine(Dash());
     }
-    
+        
     private IEnumerator Dash()
     {
         yield return new WaitForSeconds(cooldown);
+        if (PlayerController.instance == null) yield break;
+        Transform playerTransform = PlayerController.instance.transform;
         while (true)
         {
-            if (PlayerController.instance == null) yield break;
+            if (playerTransform == null) yield break;
+
             Vector2 direction = (PlayerController.instance.transform.position - transform.position).normalized;
 
             float angle = Random.Range(20f, 30f) * (Random.value > 0.5f ? 1 : -1);
@@ -57,10 +70,10 @@ public class BossDash : MonoBehaviour
             }
 
             rb2d.MovePosition(targetPosition);
-            AudioSource audioSource = GetComponent<AudioSource>();
-            audioSource.PlayOneShot(AudioManager.instance.bossDash);
+            audioSource.PlayOneShot(dashSound);
 
             yield return new WaitForSeconds(cooldown);
         }
     }
+    #endregion
 }

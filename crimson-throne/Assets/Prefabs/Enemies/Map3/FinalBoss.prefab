@@ -670,12 +670,12 @@ MonoBehaviour:
   damage: 20
   dropExp: 2
   isDefeated: 0
-  isFinalBoss: 1
+  killAll: 0
   deathEffect: {fileID: 4925807420024824091, guid: dace71131325fac4bad6bed148f3e1ee, type: 3}
   maxHealth: 1000
   detectionRadius: 8
-  dialogBox: {fileID: 5020526389113692774}
   dialogText: Save the princess? I decide her fate.
+  dialogBox: {fileID: 5020526389113692774}
 --- !u!114 &4221410489281177057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,7 +706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 8
-  force: 5
+  force: 4
 --- !u!114 &5139498007434793912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -722,6 +722,7 @@ MonoBehaviour:
   prefab: {fileID: 3738654987367539617, guid: 58585dc86b4535f4eb050fb036d05acf, type: 3}
   cooldown: 15
   damage: 15
+  duration: 4
 --- !u!1 &3897876341861733683
 GameObject:
   m_ObjectHideFlags: 0

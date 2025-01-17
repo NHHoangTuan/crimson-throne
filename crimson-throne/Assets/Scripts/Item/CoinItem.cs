@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class CoinItem : MonoBehaviour
 {
+    #region Variables
     [SerializeField] private int coinValue = 1;
-    private AudioSource audioSource;
+    #endregion
 
+    #region Controls
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -24,4 +26,5 @@ public class CoinItem : MonoBehaviour
     {
         coinValue = value;
     }
+    #endregion
 }

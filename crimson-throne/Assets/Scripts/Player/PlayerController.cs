@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
+    #region Variables
     // ATTRIBUTES
     [Header("PLAYER ATTRIBUTES")]
     [SerializeField] private int maxHealth = 100;
@@ -40,8 +41,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public string defaultSkill = "Katana Skill";
     private float timeAdding = 0.5f;
     private float addingTimer = 0.5f;
+    #endregion
 
-    // INSTANCE
+    #region Singleton
     public static PlayerController instance{get; private set;}
 
     void Awake()
@@ -56,7 +58,9 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    #endregion
 
+    #region Set Up
     void Start()
     {
         inputActions = new PlayerInputActions();
@@ -80,7 +84,9 @@ public class PlayerController : MonoBehaviour
         inputActions.Player.Move.performed += OnMovement;
         inputActions.Player.Move.canceled += OnMovement;
     }
+    #endregion
 
+    #region Update
     void Update()
     {
         if (isDefeated) return;
@@ -124,7 +130,9 @@ public class PlayerController : MonoBehaviour
             lookDirection.Normalize();
         }
     }
+    #endregion
 
+    #region Movement
     public void OnMovement(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -136,7 +144,9 @@ public class PlayerController : MonoBehaviour
             currentMoveInput = Vector2.zero;
         }
     }
-    
+    #endregion
+
+    #region Health    
     public void ChangeHealth(int amount)
     {
         if (amount < 0)
@@ -161,7 +171,9 @@ public class PlayerController : MonoBehaviour
     {
         return currentHealth == maxHealth;
     }
+    #endregion
 
+    #region Exp
     void AttractNearbyExpItems()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(rb2d.position, magnet * PlayerAttributeBuffs.instance.magnetRatio, LayerMask.GetMask("Exp"));
@@ -204,6 +216,10 @@ public class PlayerController : MonoBehaviour
 
     private void LevelUp()
     {
+        if (LevelUpController.instance == null || UIExpBar.instance == null)
+        {
+            Debug.LogWarning("Level Up UI not found!");
+        }
         int upgradeCount = 0;
         while (currentLevel < maxLevel && currentExperience >= ExperienceRequiredForLevel(currentLevel + 1))
         {
@@ -229,7 +245,9 @@ public class PlayerController : MonoBehaviour
     {
         return currentLevel;
     }
+    #endregion
 
+    #region Die
     public void DestroyCompletely()
     {
         if (instance == this)
@@ -266,6 +284,7 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.color = new Color(0.8f, spriteRenderer.color.g, spriteRenderer.color.b);
         }
         yield return new WaitForSeconds(2f);
-        GameManager.instance.EndGame(false);
+        GameManager.instance?.EndGame(false);
     }
+    #endregion
 }

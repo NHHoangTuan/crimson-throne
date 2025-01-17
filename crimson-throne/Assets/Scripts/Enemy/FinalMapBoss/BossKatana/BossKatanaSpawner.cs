@@ -4,13 +4,8 @@ using UnityEngine.UI;
 
 public class BossKatanaSpawner : MonoBehaviour
 {
+    #region Singleton
     public static BossKatanaSpawner instance { get; private set; }
-    private Rigidbody2D rb2d;
-    [SerializeField] private GameObject prefab;
-    [SerializeField] private float duration = 3f;
-    [SerializeField] private float velocity = 6.5f;
-    [SerializeField] private float cooldown = 2f;
-    [SerializeField] private float damage = 10f;
 
     void Awake()
     {
@@ -19,7 +14,18 @@ public class BossKatanaSpawner : MonoBehaviour
             instance = this;
         }
     }
+    #endregion
+    
+    #region Variables
+    [SerializeField] private GameObject prefab;
+    [SerializeField] private float duration = 3f;
+    [SerializeField] private float velocity = 6.5f;
+    [SerializeField] private float cooldown = 2f;
+    [SerializeField] private float damage = 10f;
+    private Rigidbody2D rb2d;
+    #endregion
 
+    #region Initialization
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -30,18 +36,28 @@ public class BossKatanaSpawner : MonoBehaviour
         return damage;
     }
 
+    public float GetDuration()
+    {
+        return duration;
+    }
+
     public void StartAbility()
     {
         StartCoroutine(SpawnBossKatanas());
     }
+    #endregion
     
+    #region Spawn Controls    
     private IEnumerator SpawnBossKatanas()
     {
         yield return new WaitForSeconds(cooldown);
+        if (PlayerController.instance == null) yield break;
+        Transform playerTransform = PlayerController.instance.transform;
         while (true)
         {
-            if (PlayerController.instance == null) break;
-            Vector2 direction = (PlayerController.instance.transform.position - transform.position).normalized;
+            if (playerTransform == null) break;
+            
+            Vector2 direction = (playerTransform.position - transform.position).normalized;
             GameObject bossKatana = Instantiate(prefab, rb2d.position + direction * 0.2f, Quaternion.identity); 
             Rigidbody2D bossKatanaRb2d = bossKatana.GetComponent<Rigidbody2D>();
             if (rb2d != null)
@@ -56,4 +72,5 @@ public class BossKatanaSpawner : MonoBehaviour
             yield return new WaitForSeconds(cooldown);
         }
     }
+    #endregion
 }

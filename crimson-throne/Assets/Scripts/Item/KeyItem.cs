@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class KeyItem : MonoBehaviour
 {
+    #region Variables
     [SerializeField] private Transform playerTransform;     
     [SerializeField] private bool isFollowing = false;
     [SerializeField] public float followDistance = 1f;
+    #endregion
 
+    #region Controls
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -23,4 +26,5 @@ public class KeyItem : MonoBehaviour
             transform.position = Vector2.Lerp(transform.position, targetPosition, Time.deltaTime * 5f);
         }
     }
+    #endregion
 }

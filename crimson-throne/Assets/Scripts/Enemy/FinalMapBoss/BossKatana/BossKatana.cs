@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class BossKatana : MonoBehaviour
 {
+    #region Variables
     private AudioSource audioSource;
+    #endregion
 
+    #region Controls
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -22,4 +25,5 @@ public class BossKatana : MonoBehaviour
             player.ChangeHealth(-Mathf.FloorToInt(BossKatanaSpawner.instance.GetCurrentDamage()));
         }
     }
+    #endregion
 }

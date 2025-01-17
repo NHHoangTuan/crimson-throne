@@ -2,12 +2,8 @@ using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
 {
+    #region Singleton
     public static ItemSpawner instance { get; private set; }
-    [SerializeField] private GameObject expItem;
-    [SerializeField] private GameObject coinItem;
-    [SerializeField] private GameObject healthItem;
-    [SerializeField] private GameObject keyItem;
-    [SerializeField] private GameObject gateItem;
 
     private void Awake()
     {
@@ -16,34 +12,77 @@ public class ItemSpawner : MonoBehaviour
             instance = this;
         }
     }
+    #endregion
 
+    #region Variables
+    [SerializeField] private GameObject expItem;
+    [SerializeField] private GameObject coinItem;
+    [SerializeField] private GameObject healthItem;
+    [SerializeField] private GameObject keyItem;
+    [SerializeField] private GameObject gateItem;
+    #endregion
+
+    #region Spawn Controls
     public void SpawnExp(float value, Vector2 position)
     {
-        GameObject item = Instantiate(expItem, position, Quaternion.identity);
-        if (value >= 5)
+        if (ValidatePrefab(expItem))
         {
-            item.GetComponent<SpriteRenderer>().color = Color.red;
+            GameObject item = SpawnItem(expItem, position);
+            if (value >= 5)
+            {
+                item.GetComponent<SpriteRenderer>().color = Color.red;
+            }
+            item.GetComponent<ExpItem>().SetExpValue(value);
         }
-        item.GetComponent<ExpItem>().SetExpValue(value);
     }
 
     public void SpawnCoin(Vector2 position)
     {
-        Instantiate(coinItem, position, Quaternion.identity);
+        if (ValidatePrefab(coinItem))
+        {
+            SpawnItem(coinItem, position);
+        }
     }
 
     public void SpawnHealthItem(Vector2 position)
     {
-        Instantiate(healthItem, position, Quaternion.identity);
+        if (ValidatePrefab(healthItem))
+        {
+            SpawnItem(healthItem, position);
+        }
     }
 
     public void SpawnKey(Vector2 position)
     {
-        Instantiate(keyItem, position, Quaternion.identity);
+        if (ValidatePrefab(keyItem))
+        {
+            SpawnItem(keyItem, position);
+        }
     }
 
     public void SpawnGate(Vector2 position)
     {
-        Instantiate(gateItem, position, Quaternion.identity);
+        if (ValidatePrefab(gateItem))
+        {
+            SpawnItem(gateItem, position);
+        }
     }
+    #endregion
+
+    #region Utility Methods
+    private bool ValidatePrefab(GameObject prefab)
+    {
+        if (prefab == null)
+        {
+            Debug.LogWarning("Attempted to spawn an item, but the prefab is null.");
+            return false;
+        }
+        return true;
+    }
+
+    private GameObject SpawnItem(GameObject prefab, Vector2 position)
+    {
+        return Instantiate(prefab, position, Quaternion.identity);
+    }
+    #endregion
 }

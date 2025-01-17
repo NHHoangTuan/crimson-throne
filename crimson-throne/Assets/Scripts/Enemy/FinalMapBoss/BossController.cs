@@ -6,27 +6,27 @@ using UnityEngine.UIElements;
 
 public class BossController : EnemyController
 {
+    #region Variables
     [Header("Boss Attributes")]
     [SerializeField] private int maxHealth = 1000;
     [SerializeField] private float detectionRadius = 10f;
-    [SerializeField] private GameObject dialogBox; 
     [SerializeField] private string dialogText = "Save the princess? I decide her fate.";
+    [SerializeField] private GameObject dialogBox; 
     private bool eventTriggered = false;
+    #endregion
 
+    #region Initialization
     protected override void Start()
     {
-        health = maxHealth;
-        isFinalBoss = true;
-        isDefeated = true;
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
-        if (dialogBox != null)
-        {
-            dialogBox.SetActive(false);
-        }
+        health = maxHealth;
+        killAll = true;
+        isDefeated = true;
+        dialogBox?.SetActive(false);
     }
 
     protected override void Update()
@@ -37,17 +37,16 @@ public class BossController : EnemyController
         }
         base.Update();
     }
+    #endregion
 
+    #region Set Up Boss
     private void CheckPlayerInRange()
     {
         if (PlayerController.instance == null) return;
         float distanceToPlayer = Vector2.Distance(transform.position, PlayerController.instance.transform.position);
-        if (distanceToPlayer <= detectionRadius)
+        if (distanceToPlayer <= detectionRadius && !eventTriggered)
         {
-            if (!eventTriggered)
-            {
-                StartCoroutine(TriggerBossEvent());
-            }
+            StartCoroutine(TriggerBossEvent());
         }
     }
     
@@ -68,8 +67,30 @@ public class BossController : EnemyController
         isDefeated = false;
         StartAbility();
         AudioManager.instance.PlayMusic(AudioManager.instance.daVinciBackground);
+        WaveManager.instance.canStart = true;
     }
 
+    private void SetUpAttributes()
+    {
+        spawnItemAction = pos => ItemSpawner.instance?.SpawnKey(pos);
+        target = PlayerController.instance.transform;
+    }
+
+    private void StartAbility()
+    {
+        BossKatanaSpawner.instance?.StartAbility();
+        BossDash.instance?.StartAbility();
+        BossFireSpawner.instance?.StartAbility();
+    }
+
+    public override void TakeDamage(float damageTaken, float knockbackForce)
+    {
+        base.TakeDamage(damageTaken, knockbackForce);
+        BossHealthBar.instance.SetValue(health / (float)maxHealth);
+    }
+    #endregion
+
+    #region Cinema
     private void PlayCinemaToBoss(GameObject mainCamera)
     {
         if (mainCamera != null)
@@ -117,23 +138,5 @@ public class BossController : EnemyController
             }
         }
     }
-
-    private void SetUpAttributes()
-    {
-        spawnItemAction = pos => ItemSpawner.instance?.SpawnKey(pos);
-        target = PlayerController.instance.transform;
-    }
-
-    private void StartAbility()
-    {
-        BossKatanaSpawner.instance?.StartAbility();
-        BossDash.instance?.StartAbility();
-        BossFireSpawner.instance?.StartAbility();
-    }
-
-    public override void TakeDamage(float damageTaken, float knockbackForce)
-    {
-        base.TakeDamage(damageTaken, knockbackForce);
-        BossHealthBar.instance.SetValue(health / (float)maxHealth);
-    }
+    #endregion
 }

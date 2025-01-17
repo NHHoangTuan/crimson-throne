@@ -401,6 +401,8 @@ MonoBehaviour:
   waves: []
   spawnPositions: []
   maxEnemiesAlive: 150
+  canStart: 1
+  enemyPool: {fileID: 0}
 --- !u!156049354 &43324314
 Grid:
   m_ObjectHideFlags: 0
@@ -1000,6 +1002,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: FinalBoss
       objectReference: {fileID: 0}
+    - target: {fileID: 4221410489281177057, guid: 4f65c87ea058b3944984c98a8506112a, type: 3}
+      propertyPath: pool
+      value: 
+      objectReference: {fileID: 1741637756}
+    - target: {fileID: 5139498007434793912, guid: 4f65c87ea058b3944984c98a8506112a, type: 3}
+      propertyPath: pool
+      value: 
+      objectReference: {fileID: 1741637756}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2059,6 +2069,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6333535035925820361, guid: f25042f2ecb0ca24489ac049ee8ab8db, type: 3}
   m_PrefabInstance: {fileID: 548907600}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &553076930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 553076932}
+  - component: {fileID: 553076931}
+  m_Layer: 0
+  m_Name: EnemyPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &553076931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553076930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc09eb68b7327e54488726240da2c35a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &553076932
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553076930}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 54.759068, y: -2.1323433, z: -0.06206516}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &581767035 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3762647879580236195, guid: 4d9f4aa9485c17b49a9492a212647f4b, type: 3}
@@ -52793,6 +52847,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b33464435174a9946bd2d887c0df2fbc, type: 3}
+--- !u!1 &1741637755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1741637757}
+  - component: {fileID: 1741637756}
+  m_Layer: 0
+  m_Name: FinalBossAbilityPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1741637756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741637755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a69666cc84d2644488718213b61d694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1741637757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741637755}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25.0493, y: 8.254498, z: -10.072257}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1766426737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53732,6 +53830,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4383656223185422744, guid: 3915c2e56beb6e4468b51f9af97d7ea6, type: 3}
+      propertyPath: enemyPool
+      value: 
+      objectReference: {fileID: 553076931}
+    - target: {fileID: 4383656223185422744, guid: 3915c2e56beb6e4468b51f9af97d7ea6, type: 3}
       propertyPath: waves.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -53743,6 +53845,10 @@ PrefabInstance:
       propertyPath: 'waves.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: a4041aecdaa3aa24aa4a47edc7b6e4e9, type: 2}
+    - target: {fileID: 4383656223185422744, guid: 3915c2e56beb6e4468b51f9af97d7ea6, type: 3}
+      propertyPath: spawnPositions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4383656223185422744, guid: 3915c2e56beb6e4468b51f9af97d7ea6, type: 3}
       propertyPath: 'spawnPositions.Array.data[0]'
       value: 
@@ -54896,3 +55002,5 @@ SceneRoots:
   - {fileID: 342047127337658748}
   - {fileID: 2035414500}
   - {fileID: 268628614}
+  - {fileID: 1741637757}
+  - {fileID: 553076932}
