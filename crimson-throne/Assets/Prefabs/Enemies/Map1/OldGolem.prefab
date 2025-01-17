@@ -202,7 +202,7 @@ MonoBehaviour:
   health: 75
   speed: 2
   damage: 5
-  dropExp: 10
+  dropExp: 15
   isDefeated: 0
   isFinalBoss: 0
   deathEffect: {fileID: 4925807420024824091, guid: dace71131325fac4bad6bed148f3e1ee, type: 3}
