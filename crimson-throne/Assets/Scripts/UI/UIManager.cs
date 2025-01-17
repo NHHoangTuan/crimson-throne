@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     public GameObject settingsPanel;
     [Space(1)]
     public GameObject powerUpPanel;
+    public GameObject playerPickPanel;
     [Space(10)]
     [Header("In-Game Settings")]
     public GameObject inGameScreen;
@@ -69,6 +70,7 @@ public class UIManager : MonoBehaviour
         mainMenuScreen.SetActive(false);
         inGameScreen.SetActive(false);
         mainPanel.SetActive(false);
+        playerPickPanel.SetActive(false);
         settingsPanel.SetActive(false);
         powerUpPanel.SetActive(false);
         hudPanel.SetActive(false);

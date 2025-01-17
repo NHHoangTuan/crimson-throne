@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2160830638156668766}
   - component: {fileID: 3783110158906886052}
-  - component: {fileID: 658652934206146663}
-  m_Layer: 0
+  - component: {fileID: 1568092485939868525}
+  m_Layer: 10
   m_Name: Dungeon02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,8 +88,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &658652934206146663
-BoxCollider2D:
+--- !u!70 &1568092485939868525
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -122,15 +122,6 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.005735703, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.40625, y: 0.53125}
-    newSize: {x: 0.40625, y: 0.53125}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.3947786, y: 0.53125}
-  m_EdgeRadius: 0
+  m_Offset: {x: -0.016324624, y: -0.0007768523}
+  m_Size: {x: 0.35183597, y: 0.45507}
+  m_Direction: 0

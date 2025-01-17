@@ -56,7 +56,7 @@ public class MapManager : MonoBehaviour
         GameObject player = Instantiate(GameManager.instance?.player, spawnPoint.transform.position, Quaternion.identity);
         SetupCamera(player);
         PlayerController.instance?.gameObject.SetActive(true);
-        SkillsManager.instance?.inactiveSkills[0].LevelUp();
+        SkillsManager.instance?.SetDefaultSkill(PlayerController.instance?.defaultSkill);
         // Set Up Wave
         WaveManager.instance?.StartGame();
         // Spawn Item (Health And Coins)

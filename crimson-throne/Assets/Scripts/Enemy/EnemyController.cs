@@ -17,11 +17,11 @@ public class EnemyController : MonoBehaviour
     protected Transform target;
     protected Animator animator;
     protected Rigidbody2D rb2d;
-    private SpriteRenderer spriteRenderer;
-    private Color originalColor; 
-    private AudioSource audioSource;
+    protected SpriteRenderer spriteRenderer;
+    protected Color originalColor; 
+    protected AudioSource audioSource;
 
-    private System.Action<Vector2> spawnItemAction = null;
+    protected System.Action<Vector2> spawnItemAction = null;
 
     private void Awake()
     {
@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
@@ -56,7 +56,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (isDefeated || target == null || isKnockedBack) return;
         MoveTowardsTarget();
@@ -77,7 +77,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damageTaken, float knockbackForce)
+    public virtual void TakeDamage(float damageTaken, float knockbackForce)
     {
         if (isDefeated) return;
         animator.SetTrigger("Hit");

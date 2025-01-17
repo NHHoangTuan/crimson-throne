@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6163578961078092064}
   - component: {fileID: 587873318838368116}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pentagramm
   m_TagString: Untagged
   m_Icon: {fileID: 0}

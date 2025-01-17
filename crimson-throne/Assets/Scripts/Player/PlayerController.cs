@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int maxLevel = 31;
     [SerializeField] private int currentLevel = 0;
     [SerializeField] private float currentExperience = 0;
+    [SerializeField] public string defaultSkill = "Katana Skill";
     private float timeAdding = 0.5f;
     private float addingTimer = 0.5f;
 
