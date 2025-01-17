@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7404189586562004111}
   - component: {fileID: 3327973619327023568}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: skullcap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

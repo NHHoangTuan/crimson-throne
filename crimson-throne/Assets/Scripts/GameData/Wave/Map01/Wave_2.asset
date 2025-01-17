@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93688ba6244f9164eb00d41fbddb76f4, type: 3}
-  m_Name: Demo 3
+  m_Name: Wave_2
   m_EditorClassIdentifier: 
-  waveName: Final Boss Wave
-  waveType: 2
-  duration: 5
-  totalEnemies: 1
-  spawnInterval: 0
+  waveName: Enemies Wave
+  waveType: 0
+  duration: 60
+  totalEnemies: 60
+  spawnInterval: 5
   enemyPrefabs:
-  - {fileID: 49824602229565950, guid: d51743c2ffc6a9344a0f90398d11534a, type: 3}
+  - {fileID: 5132915648789423311, guid: 5e85464bbf6ca2342bed07fefc7fb553, type: 3}
