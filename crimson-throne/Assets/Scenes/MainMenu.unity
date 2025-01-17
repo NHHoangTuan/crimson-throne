@@ -204,11 +204,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5996834147089926334, guid: 2e0088d6d72463a45b33fe5ddcf82ade, type: 3}
       propertyPath: 'screens.Array.data[1]'
-      value: Map3
+      value: Map2
       objectReference: {fileID: 0}
     - target: {fileID: 5996834147089926334, guid: 2e0088d6d72463a45b33fe5ddcf82ade, type: 3}
       propertyPath: 'screens.Array.data[2]'
-      value: Map1
+      value: Map2
       objectReference: {fileID: 0}
     - target: {fileID: 5996834147089926334, guid: 2e0088d6d72463a45b33fe5ddcf82ade, type: 3}
       propertyPath: 'screens.Array.data[3]'
