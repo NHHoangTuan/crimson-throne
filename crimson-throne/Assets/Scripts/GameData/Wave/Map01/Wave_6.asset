@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93688ba6244f9164eb00d41fbddb76f4, type: 3}
-  m_Name: Demo 4
+  m_Name: Wave_6
   m_EditorClassIdentifier: 
-  waveName: Wave
+  waveName: Enemies Wave
   waveType: 0
-  duration: 240
-  totalEnemies: 250
-  spawnInterval: 1
+  duration: 60
+  totalEnemies: 60
+  spawnInterval: 5
   enemyPrefabs:
-  - {fileID: 2064929725463121462, guid: 6cf614d66bb462f47888db0daa07482c, type: 3}
+  - {fileID: 2064929725463121462, guid: 4ac331b86a62e184abd921b8e080735a, type: 3}
