@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93688ba6244f9164eb00d41fbddb76f4, type: 3}
-  m_Name: Map1_W01
+  m_Name: Wave01
   m_EditorClassIdentifier: 
-  waveName: SkeletonSpawn
+  waveName: Wave01
   waveType: 0
-  duration: 60
+  duration: 180
+  totalEnemies: 360
   spawnInterval: 5
-  totalEnemies: 30
   enemyPrefabs:
-  - {fileID: 2064929725463121462, guid: 6cf614d66bb462f47888db0daa07482c, type: 3}
+  - {fileID: 5132915648789423311, guid: bd47fc65edb98ea4092008f3ee738c4a, type: 3}
+  - {fileID: 2064929725463121462, guid: e29625e0f2f8eff4ca509e1e4295ed44, type: 3}

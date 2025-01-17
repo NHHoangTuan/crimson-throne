@@ -79,7 +79,10 @@ public class EnemyController : MonoBehaviour
             {
                 KillAllEnemies();
             }
-            Die();
+            else 
+            {
+                Die();
+            }
         }
         else
         {
