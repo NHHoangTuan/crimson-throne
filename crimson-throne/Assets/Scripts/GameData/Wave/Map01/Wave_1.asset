@@ -15,7 +15,7 @@ MonoBehaviour:
   waveName: Wave 1
   waveType: 0
   duration: 60
-  totalEnemies: 40
+  totalEnemies: 60
   spawnInterval: 6
   enemyPrefabs:
   - {fileID: 6708197453487998565, guid: 72a55fb2f0ed46945b79288409b74acb, type: 3}
