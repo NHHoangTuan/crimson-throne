@@ -70,11 +70,12 @@ public class MagicBallSpawner : Ability
     {
         while (true)
         {
-            GameObject[] magicBalls = new GameObject[3];
+            int count = projectilesCount[currentLevel];
+            GameObject[] magicBalls = new GameObject[count + 1];
             Vector2 playerPosition = PlayerController.instance.transform.position;
-            for (int i = 0; i < projectilesCount[currentLevel]; i++)
+            for (int i = 0; i < count; i++)
             {
-                float angle = i * Mathf.PI * 2f / projectilesCount[currentLevel];
+                float angle = i * Mathf.PI * 2f / count;
                 Vector2 spawnPosition = playerPosition + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
                 magicBalls[i] = Instantiate(prefab, spawnPosition, Quaternion.identity);
             }
@@ -83,20 +84,20 @@ public class MagicBallSpawner : Ability
             {
                 elapsedTime += Time.deltaTime;
                 playerPosition = PlayerController.instance.transform.position;
-                for (int i = 0; i < projectilesCount[currentLevel]; i++)
+                for (int i = 0; i < count; i++)
                 {
-                    if (magicBalls[i] != null)
+                    if (i < magicBalls.Length && magicBalls[i] != null)
                     {
-                        float angle = (i * Mathf.PI * 2f / projectilesCount[currentLevel]) + (elapsedTime * rotationSpeed * PlayerAttributeBuffs.instance.velocityRatio * Mathf.Deg2Rad / (duration[currentLevel]  * PlayerAttributeBuffs.instance.durationRatio));
+                        float angle = (i * Mathf.PI * 2f / count) + (elapsedTime * rotationSpeed * PlayerAttributeBuffs.instance.velocityRatio * Mathf.Deg2Rad / (duration[currentLevel]  * PlayerAttributeBuffs.instance.durationRatio));
                         Vector2 updatedPosition = playerPosition + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
                         magicBalls[i].transform.position = updatedPosition;
                     }
                 }
                 yield return null;
             }
-            for (int i = 0; i < projectilesCount[currentLevel]; i++)
+            for (int i = 0; i < count; i++)
             {
-                if (magicBalls[i] != null)
+                if (i < magicBalls.Length && magicBalls[i] != null)
                 {
                     Destroy(magicBalls[i]);
                 }

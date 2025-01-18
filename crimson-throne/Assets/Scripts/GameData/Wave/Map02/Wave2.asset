@@ -16,7 +16,6 @@ MonoBehaviour:
   waveType: 1
   duration: 10
   totalEnemies: 5
-  spawnInterval: 2
+  spawnInterval: 0
   enemyPrefabs:
   - {fileID: 4588662867825683838, guid: e7b62a46bf82e7440a48979e11e9e35c, type: 3}
-  - {fileID: 2064929725463121462, guid: 9b10f003ba6c484428d03df67adbbc28, type: 3}

@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -12.66, y: -4.92, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 0.6525145}
+  m_LocalScale: {x: 2.8112, y: 2.8112, z: 0.4585872}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -104,8 +104,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
-  m_LinearDamping: 0
+  m_Mass: 5
+  m_LinearDamping: 1
   m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -156,7 +156,7 @@ MonoBehaviour:
   health: 300
   speed: 2.25
   damage: 10
-  dropExp: 8
+  dropExp: 10
   isDefeated: 0
   killAll: 0
   deathEffect: {fileID: 4925807420024824091, guid: dace71131325fac4bad6bed148f3e1ee, type: 3}

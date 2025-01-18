@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93688ba6244f9164eb00d41fbddb76f4, type: 3}
   m_Name: Wave_4
   m_EditorClassIdentifier: 
-  waveName: Enemies Wave
+  waveName: Wave 4
   waveType: 0
-  duration: 60
+  duration: 50
   totalEnemies: 60
-  spawnInterval: 10
+  spawnInterval: 7
   enemyPrefabs:
   - {fileID: 5122510396592221041, guid: 0fac30b7bd8ebe34eae2970ee1e54b93, type: 3}

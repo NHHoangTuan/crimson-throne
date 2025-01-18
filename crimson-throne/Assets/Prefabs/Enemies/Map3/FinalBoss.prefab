@@ -619,14 +619,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f975974490b597540813eb107e96c664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2500
-  speed: 1.35
+  health: 20000
+  speed: 1.4
   damage: 20
   dropExp: 2
   isDefeated: 0
   killAll: 1
   deathEffect: {fileID: 4925807420024824091, guid: dace71131325fac4bad6bed148f3e1ee, type: 3}
-  maxHealth: 1000
+  maxHealth: 20000
   detectionRadius: 8
   dialogText: Save the princess? I decide her fate.
   dialogBox: {fileID: 5020526389113692774}
@@ -643,8 +643,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 5261202126012331479, guid: 826e259bae15ee64ead4834c15b02274, type: 3}
-  duration: 3
-  velocity: 6.5
+  duration: 2.5
+  velocity: 8.5
   cooldown: 2
   damage: 10
 --- !u!114 &7611452838884179968

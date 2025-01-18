@@ -115,9 +115,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &5533365336466712802
 Animator:
@@ -156,7 +156,7 @@ MonoBehaviour:
   health: 10
   speed: 2
   damage: 5
-  dropExp: 3
+  dropExp: 2
   isDefeated: 0
   killAll: 0
   deathEffect: {fileID: 4925807420024824091, guid: dace71131325fac4bad6bed148f3e1ee, type: 3}
