@@ -18,6 +18,7 @@ public class HealthItem : MonoBehaviour
             {
                 AudioManager.instance.PlaySFX(AudioManager.instance.healthCollect);
                 playerController.ChangeHealth(healthValue);
+                SpawnItemManager.instance?.OnHealthItemCollected();
                 Destroy(gameObject);
             }
         }

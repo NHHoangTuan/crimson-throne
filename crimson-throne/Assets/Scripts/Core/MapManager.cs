@@ -38,7 +38,7 @@ public class MapManager : MonoBehaviour
                 break;
             case 3:
                 SetupGamePlay();
-                AudioManager.instance?.PlayMusic(AudioManager.instance.chillMusicBackground);
+                AudioManager.instance?.PlayMusic(AudioManager.instance.meetTheBossFinalMapBackground);
                 WaveManager.instance.canStart = false;
                 break;
             default:
@@ -53,7 +53,6 @@ public class MapManager : MonoBehaviour
     {
         UIManager.instance?.OpenWelcomeScreen();
         AudioManager.instance?.PlayMusic(AudioManager.instance.lofiOrchestraBackground);
-        AudioManager.instance?.SetMusicVolume(0f);
     }
 
     private void SetupFirstGamePlay()

@@ -185,7 +185,7 @@ MonoBehaviour:
   prefab: {fileID: 5261202126012331479, guid: c43a58e816e4d8246be4746a1ddd4cd8, type: 3}
   duration: 1.2
   velocity: 12
-  cooldown: 1.45
+  cooldown: 1.15
   descriptions:
   - 
   - Fires quickly in the faced direction.

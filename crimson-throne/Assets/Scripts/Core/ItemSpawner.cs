@@ -28,7 +28,7 @@ public class ItemSpawner : MonoBehaviour
         if (ValidatePrefab(expItem))
         {
             GameObject item = SpawnItem(expItem, position);
-            if (value >= 5)
+            if (value >= 10)
             {
                 item.GetComponent<SpriteRenderer>().color = Color.red;
             }

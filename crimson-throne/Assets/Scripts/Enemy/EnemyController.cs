@@ -77,6 +77,7 @@ public class EnemyController : MonoBehaviour
         {
             if (killAll)
             {
+                PlayerController.instance?.ChangeHealth(100);
                 KillAllEnemies();
             }
             else 
@@ -133,7 +134,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void Die()
+    public virtual void Die()
     {
         WaveManager.instance?.EnemyDied();
         rb2d.linearVelocity = Vector2.zero;

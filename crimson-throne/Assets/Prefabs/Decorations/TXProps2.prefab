@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7408615018071839242}
   - component: {fileID: 6455704643789691707}
-  - component: {fileID: 4595035209031643394}
+  - component: {fileID: 1403684883467666378}
   m_Layer: 10
   m_Name: TXProps2
   m_TagString: Untagged
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 20
+  m_SortingOrder: 45
   m_Sprite: {fileID: -9188652585898921079, guid: 2f37fb6248e41c74b928fd70b0b8699d, type: 3}
   m_Color: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
   m_FlipX: 0
@@ -88,8 +88,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &4595035209031643394
-PolygonCollider2D:
+--- !u!70 &1403684883467666378
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -122,33 +122,6 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.625, y: 2.5}
-    newSize: {x: 1.625, y: 2.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.22235548, y: 1.2580987}
-      - {x: -0.25369108, y: 0.80105245}
-      - {x: -0.8107479, y: 0.8018943}
-      - {x: -0.83573496, y: 0.33103964}
-      - {x: -0.26230893, y: 0.31209278}
-      - {x: -0.26178867, y: -0.19841783}
-      - {x: -0.539427, y: -0.2145155}
-      - {x: -0.5614407, y: -1.145776}
-      - {x: -0.55563116, y: -1.25}
-      - {x: 0.56144077, y: -1.2661974}
-      - {x: 0.56661034, y: -0.17129207}
-      - {x: 0.3103817, y: -0.17412172}
-      - {x: 0.22793955, y: 0.31520015}
-      - {x: 0.8133099, y: 0.34953076}
-      - {x: 0.7484773, y: 0.82080305}
-      - {x: 0.26178926, y: 0.8473551}
-      - {x: 0.1668945, y: 1.2257043}
-  m_UseDelaunayMesh: 0
+  m_Offset: {x: -0.024384689, y: -0.67017555}
+  m_Size: {x: 1.1817924, y: 1.168592}
+  m_Direction: 1
