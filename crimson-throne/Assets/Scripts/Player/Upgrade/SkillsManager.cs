@@ -38,7 +38,7 @@ public class SkillsManager : MonoBehaviour
     {
         activeSkills.Add(ability);
         inactiveSkills.Remove(ability);
-        UIAbilities.instance.AddSkillIcon(ability.GetArtwork(), activeSkills.Count - 1);
+        UIAbilities.instance.AddSkillIcon(ability.GetArtwork(), activeSkills.Count + maxSkills.Count - 1);
     }
 
     public void MoveToMaxSkills(Ability ability)

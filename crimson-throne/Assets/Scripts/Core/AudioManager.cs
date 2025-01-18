@@ -25,6 +25,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource sfxSource;
     [Header("------------ Audio Clip ------------")]
     [Header("Background")]
+    [SerializeField] public AudioClip killBossVictory;
+    [SerializeField] public AudioClip victoryResultsBackground;
+    [SerializeField] public AudioClip meetTheBossFinalMapBackground;
     [SerializeField] public AudioClip chillMusicBackground;
     [SerializeField] public AudioClip daVinciBackground;
     [SerializeField] public AudioClip gameMusicLoopBackground;

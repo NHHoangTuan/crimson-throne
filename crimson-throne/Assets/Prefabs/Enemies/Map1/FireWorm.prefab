@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 50
   m_Sprite: {fileID: 4723107735738678597, guid: 2c2cb487c2e857b40aa49a2c9bcbd6d5, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.7311321, b: 0.7311321, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -138,17 +138,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.265, y: -0.13499999}
-      - {x: 0.265, y: 0.044999998}
-      - {x: 0.24499999, y: 0.155}
-      - {x: 0.195, y: 0.21499999}
-      - {x: 0.105, y: 0.21499999}
-      - {x: 0.095, y: 0.205}
-      - {x: 0.035, y: 0.105}
-      - {x: -0.024999999, y: 0.044999998}
-      - {x: -0.044999998, y: -0.114999995}
-      - {x: -0.095, y: -0.065}
-      - {x: -0.175, y: -0.074999996}
+    - - {x: 0.22764869, y: -0.13633387}
+      - {x: 0.19563355, y: -0.0056909677}
+      - {x: 0.17296548, y: 0.052284513}
+      - {x: 0.11896385, y: 0.0709316}
+      - {x: 0.038301602, y: 0.084270954}
+      - {x: -0.0490684, y: 0.07827323}
+      - {x: -0.21041164, y: 0.045076147}
+      - {x: -0.25822914, y: -0.020798193}
       - {x: -0.265, y: -0.13499999}
       - {x: -0.265, y: -0.21499999}
       - {x: 0.225, y: -0.21499999}
@@ -165,8 +162,8 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
+  m_Mass: 5
+  m_LinearDamping: 1
   m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -176,9 +173,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &5499815595876343644
 Animator:
@@ -214,12 +211,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f47b36b44b50ff84b99ad0f9d5e3a83e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  speed: 2.25
-  damage: 15
-  dropExp: 20
+  health: 150
+  speed: 2.6
+  damage: 10
+  dropExp: 15
   isDefeated: 0
-  isFinalBoss: 0
+  killAll: 0
   deathEffect: {fileID: 4925807420024824091, guid: dace71131325fac4bad6bed148f3e1ee, type: 3}
 --- !u!82 &-4299003688057532939
 AudioSource:

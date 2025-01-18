@@ -88,6 +88,12 @@ public class BossController : EnemyController
         base.TakeDamage(damageTaken, knockbackForce);
         BossHealthBar.instance.SetValue(health / (float)maxHealth);
     }
+
+    public override void Die()
+    {   
+        AudioManager.instance?.PlayMusic(AudioManager.instance.killBossVictory);
+        base.Die();
+    }
     #endregion
 
     #region Cinema

@@ -21,7 +21,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private Transform[] spawnPositions;
     [SerializeField] public int maxEnemiesAlive = 150;
     [SerializeField] public bool canStart = true;
-    private int enemiesAlive = 0;
+    [SerializeField] private int enemiesAlive = 0;
     #endregion
 
     #region Initialization
@@ -39,7 +39,7 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator GameFlow()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         while (!canStart) 
         {
             yield return null;

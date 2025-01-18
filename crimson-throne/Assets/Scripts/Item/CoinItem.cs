@@ -19,6 +19,7 @@ public class CoinItem : MonoBehaviour
     {
         AudioManager.instance.PlaySFX(AudioManager.instance.coinCollect);
         GameManager.instance?.UpdateCoinsCount(coinValue);
+        SpawnItemManager.instance?.OnCoinCollected();
         Destroy(gameObject);
     }
 

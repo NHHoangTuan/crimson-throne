@@ -38,7 +38,7 @@ public class BuffsManager : MonoBehaviour
     {
         activeBuffs.Add(ability);
         inactiveBuffs.Remove(ability);
-        UIAbilities.instance.AddBuffIcon(ability.GetArtwork(), activeBuffs.Count - 1);
+        UIAbilities.instance.AddBuffIcon(ability.GetArtwork(), activeBuffs.Count + maxBuffs.Count - 1);
     }
 
     public void MoveToMaxBuffs(Ability ability)

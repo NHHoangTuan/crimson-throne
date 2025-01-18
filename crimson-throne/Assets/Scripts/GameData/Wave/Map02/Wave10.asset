@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveName: Enemies Wave
   waveType: 0
-  duration: 50
+  duration: 60
   totalEnemies: 100
-  spawnInterval: 5
+  spawnInterval: 10
   enemyPrefabs:
   - {fileID: 4990935056238022779, guid: 0c03ad3046408bf4b98f8064b7569130, type: 3}
   - {fileID: 726979253195228200, guid: edcf1485ee4d55e43bfed82335b8cf68, type: 3}
